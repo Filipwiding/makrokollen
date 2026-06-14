@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MakroKollen – öppna denna fil</title>
+  <title>MakroKollen – Mest näring för pengarna</title>
   <meta name="description" content="Jämför matvaror efter protein per krona, deff-score och bulk-score." />
   <style>
 :root {
@@ -58,7 +58,7 @@ main { width: min(1180px, calc(100% - 36px)); margin: -36px auto 0; }
 .panel { padding: 22px; }
 .panel-head { display:flex; justify-content:space-between; gap: 20px; align-items: end; margin-bottom: 20px; }
 .panel-head .muted { max-width: 420px; line-height: 1.45; }
-.toolbar { display:grid; grid-template-columns: 1.4fr .8fr .8fr; gap: 12px; margin-bottom: 14px; }
+.toolbar { display:grid; grid-template-columns: 1.2fr .7fr .7fr .8fr; gap: 12px; margin-bottom: 14px; }
 label span { display:block; font-size: 12px; color: var(--muted); margin-bottom: 6px; font-weight: 700; }
 input, select { width: 100%; background: rgba(255,255,255,.07); border: 1px solid var(--line); border-radius: 14px; color: var(--text); padding: 13px 14px; outline: none; }
 select option { color: #101816; }
@@ -105,9 +105,9 @@ footer { width:min(1180px, calc(100% - 36px)); margin: 0 auto; padding: 24px 0 4
     </nav>
     <section class="hero-grid">
       <div>
-        <p class="eyebrow">Första Willys-MVP:n</p>
+        <p class="eyebrow">Mat smartare, träna billigare</p>
         <h1>Hitta mest protein för pengarna.</h1>
-        <p class="lead">Sortera matvaror efter protein per krona, protein per 100 kcal och egna deff-/bulk-score. Byggd från Excel-datan som första testdatabas.</p>
+        <p class="lead">Jämför matvaror efter protein per krona, protein per 100 kcal och prisvärde för deff, bulk och studentbudget. Just nu testas MakroKollen på utvalda Willys-varor.</p>
         <div class="hero-actions">
           <a class="button primary" href="#produkter">Utforska topplistan</a>
           <button class="button secondary" id="showBestDeff">Visa bäst för deff</button>
@@ -117,7 +117,7 @@ footer { width:min(1180px, calc(100% - 36px)); margin: 0 auto; padding: 24px 0 4
         <p class="mini-title">Snabb vinnare just nu</p>
         <h2 id="winnerName">–</h2>
         <div class="winner-metric"><span id="winnerMetric">–</span><small>g protein/kr</small></div>
-        <p id="winnerText">Baserat på testdatan från Excel.</p>
+        <p id="winnerText">Baserat på testdatan från Willys.</p>
       </aside>
     </section>
   </header>
@@ -146,9 +146,9 @@ footer { width:min(1180px, calc(100% - 36px)); margin: 0 auto; padding: 24px 0 4
       <div class="panel-head">
         <div>
           <p class="eyebrow">Topplista</p>
-          <h2>Produkter från Excel-datan</h2>
+          <h2>Billigaste proteinvarorna just nu</h2>
         </div>
-        <p class="muted">Obs: vissa näringsvärden är uppskattade i MVP:n och behöver verifieras innan lansering.</p>
+        <p class="muted">Pris och näring uppdateras manuellt i testversionen. Vissa värden behöver verifieras innan skarp lansering.</p>
       </div>
 
       <div class="toolbar">
@@ -157,7 +157,13 @@ footer { width:min(1180px, calc(100% - 36px)); margin: 0 auto; padding: 24px 0 4
           <input id="searchInput" type="search" placeholder="Sök kvarg, tonfisk, kyckling..." />
         </label>
         <label>
-          <span>Kategori</span>
+          <span>Varugrupp</span>
+          <select id="macroSelect">
+            <option value="all">Alla varugrupper</option>
+          </select>
+        </label>
+        <label>
+          <span>Detaljkategori</span>
           <select id="categorySelect">
             <option value="all">Alla kategorier</option>
           </select>
@@ -187,7 +193,7 @@ footer { width:min(1180px, calc(100% - 36px)); margin: 0 auto; padding: 24px 0 4
             <tr>
               <th>#</th>
               <th>Produkt</th>
-              <th>Kategori</th>
+              <th>Varugrupp</th>
               <th>Pris</th>
               <th>Protein/kr</th>
               <th>Protein/100 kcal</th>
@@ -205,7 +211,7 @@ footer { width:min(1180px, calc(100% - 36px)); margin: 0 auto; padding: 24px 0 4
   </main>
 
   <footer>
-    <p>MakroKollen MVP · Data från Excel-fil · Verifiera pris och näring innan publicering.</p>
+    <p>MakroKollen MVP · Testdata från Willys · Verifiera pris och näring innan publicering.</p>
   </footer>
 
   <script>
@@ -705,6 +711,20 @@ const fmt = new Intl.NumberFormat('sv-SE', { maximumFractionDigits: 1 });
 const money = new Intl.NumberFormat('sv-SE', { style: 'currency', currency: 'SEK', maximumFractionDigits: 2 });
 let currentMode = 'all';
 
+function inferMacroCategory(p) {
+  const text = `${p.category || ''} ${p.product || ''}`.toLowerCase();
+  if (text.includes('kyckling') || text.includes('tonfisk') || text.includes('kött') || text.includes('fisk')) return 'Kött, fisk & fågel';
+  if (text.includes('kvarg') || text.includes('keso') || text.includes('skyr') || text.includes('yoghurt') || text.includes('mjölk')) return 'Mejeri';
+  if (text.includes('havre') || text.includes('linser') || text.includes('bönor') || text.includes('ris') || text.includes('pasta')) return 'Kolonial';
+  if (text.includes('ägg')) return 'Ägg';
+  if (text.includes('proteinpudding') || text.includes('protein')) return 'Proteinprodukter';
+  return 'Övrigt';
+}
+
+products.forEach(p => {
+  p.macroCategory = p.macroCategory || inferMacroCategory(p);
+});
+
 function n(value, digits = 1) {
   if (value === null || value === undefined || Number.isNaN(Number(value))) return '–';
   return fmt.format(Number(value));
@@ -718,6 +738,15 @@ function qualityClass(q = '') {
 }
 
 function setup() {
+  const macroCategories = [...new Set(products.map(p => p.macroCategory).filter(Boolean))].sort((a,b) => a.localeCompare(b, 'sv'));
+  const macroSelect = $('macroSelect');
+  macroCategories.forEach(cat => {
+    const opt = document.createElement('option');
+    opt.value = cat;
+    opt.textContent = cat;
+    macroSelect.appendChild(opt);
+  });
+
   const categories = [...new Set(products.map(p => p.category).filter(Boolean))].sort((a,b) => a.localeCompare(b, 'sv'));
   const select = $('categorySelect');
   categories.forEach(cat => {
@@ -728,6 +757,7 @@ function setup() {
   });
 
   $('searchInput').addEventListener('input', render);
+  $('macroSelect').addEventListener('change', render);
   $('categorySelect').addEventListener('change', render);
   $('sortSelect').addEventListener('change', render);
   $('showBestDeff').addEventListener('click', () => {
@@ -759,18 +789,20 @@ function renderStats() {
   $('bestDeff').textContent = byDeff ? byDeff.product.replace(/\s\d.*$/, '') : '–';
   $('winnerName').textContent = byProtein?.product || '–';
   $('winnerMetric').textContent = n(byProtein?.proteinPerKr);
-  $('winnerText').textContent = byProtein ? `${byProtein.category} · ${money.format(byProtein.price)} · ${n(byProtein.totalProtein)} g protein/förp.` : 'Baserat på testdatan från Excel.';
+  $('winnerText').textContent = byProtein ? `${byProtein.category} · ${money.format(byProtein.price)} · ${n(byProtein.totalProtein)} g protein/förp.` : 'Baserat på testdatan från Willys.';
 }
 
 function getFiltered() {
   const query = $('searchInput').value.trim().toLowerCase();
+  const macro = $('macroSelect').value;
   const cat = $('categorySelect').value;
   const sort = $('sortSelect').value;
 
   let list = products.filter(p => {
-    const matchesQuery = !query || `${p.product} ${p.brand} ${p.category}`.toLowerCase().includes(query);
+    const matchesQuery = !query || `${p.product} ${p.brand} ${p.category} ${p.macroCategory}`.toLowerCase().includes(query);
+    const matchesMacro = macro === 'all' || p.macroCategory === macro;
     const matchesCat = cat === 'all' || p.category === cat;
-    return matchesQuery && matchesCat;
+    return matchesQuery && matchesMacro && matchesCat;
   });
 
   if (currentMode === 'deff') {
@@ -804,7 +836,7 @@ function render() {
     tr.innerHTML = `
       <td>${i + 1}</td>
       <td><strong>${p.product}</strong><div class="sub">${p.brand || ''} · ${n(p.totalProtein)} g protein/förp.</div></td>
-      <td>${p.category || '–'}</td>
+      <td><strong>${p.macroCategory || 'Övrigt'}</strong><div class="sub">${p.category || '–'}</div></td>
       <td>${money.format(p.price || 0)}<div class="sub">${p.comparePrice || ''}</div></td>
       <td class="metric">${n(p.proteinPerKr)}</td>
       <td>${n(p.proteinPer100Kcal)}</td>
@@ -819,7 +851,7 @@ function render() {
     card.className = 'product-card';
     card.innerHTML = `
       <h3>${p.product}</h3>
-      <div class="card-meta">${p.brand || ''} · ${p.category || ''} · Prisdatum ${p.priceDate || '–'}</div>
+      <div class="card-meta">${p.brand || ''} · ${p.macroCategory || ''} · ${p.category || ''} · Prisdatum ${p.priceDate || '–'}</div>
       <div class="card-metrics">
         <div class="card-metric"><span>Pris</span><strong>${money.format(p.price || 0)}</strong></div>
         <div class="card-metric"><span>Protein/kr</span><strong>${n(p.proteinPerKr)}</strong></div>
