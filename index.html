@@ -214,502 +214,19 @@ footer { width:min(1180px, calc(100% - 36px)); margin: 0 auto; padding: 24px 0 4
     <p>MakroKollen MVP · Testdata från Willys · Verifiera pris och näring innan publicering.</p>
   </footer>
 
+  
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-window.MAKROKOLLEN_PRODUCTS = [
-  {
-    "product": "Havregryn 1kg",
-    "brand": "Gyllenhamars",
-    "store": "Willys",
-    "category": "Havregryn",
-    "packageSize": 1000,
-    "edibleWeight": 1000,
-    "price": 11.31,
-    "comparePrice": "11,31 kr/kg",
-    "protein100g": 13,
-    "kcal100g": 370,
-    "totalProtein": 130,
-    "proteinPerKr": 11.494252873563218,
-    "proteinPer100Kcal": 3.5135135135135136,
-    "kcalPerKr": 327.14412024756854,
-    "deffScore": 40.3852127990059,
-    "bulkScore": 338.63837312113174,
-    "sourceUrl": "https://www.willys.se/produkt/Havregryn-100132394_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Protein och jmf-pris från sökresultat; kcal uppskattad.",
-    "dataQuality": "Pris+protein hittad; kcal uppskattad"
-  },
-  {
-    "product": "Havregryn 1,5kg",
-    "brand": "Garant",
-    "store": "Willys",
-    "category": "Havregryn",
-    "packageSize": 1500,
-    "edibleWeight": 1500,
-    "price": 18.83,
-    "comparePrice": "12,55 kr/kg",
-    "protein100g": 13,
-    "kcal100g": 370,
-    "totalProtein": 195,
-    "proteinPerKr": 10.355815188528943,
-    "proteinPer100Kcal": 3.5135135135135136,
-    "kcalPerKr": 294.7424322889007,
-    "deffScore": 36.38529660834494,
-    "bulkScore": 305.09824747742965,
-    "sourceUrl": "https://www.willys.se/produkt/Havregryn-101833307_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Pris från jmf-pris i sökresultat; näring uppskattad.",
-    "dataQuality": "Pris hittad; näring uppskattad"
-  },
-  {
-    "product": "Fiberhavregryn 1,5kg",
-    "brand": "Garant",
-    "store": "Willys",
-    "category": "Havregryn",
-    "packageSize": 1500,
-    "edibleWeight": 1500,
-    "price": 21.68,
-    "comparePrice": "14,45 kr/kg",
-    "protein100g": 13,
-    "kcal100g": 365,
-    "totalProtein": 195,
-    "proteinPerKr": 8.994464944649447,
-    "proteinPer100Kcal": 3.5616438356164384,
-    "kcalPerKr": 252.5369003690037,
-    "deffScore": 32.03508062477886,
-    "bulkScore": 261.5313653136531,
-    "sourceUrl": "https://www.willys.se/produkt/Fiberhavregryn-101308104_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Pris från jmf-pris i sökresultat; näring uppskattad.",
-    "dataQuality": "Pris hittad; näring uppskattad"
-  },
-  {
-    "product": "Röda Linser 800g",
-    "brand": "Eldorado",
-    "store": "Willys",
-    "category": "Linser/bönor",
-    "packageSize": 800,
-    "edibleWeight": 800,
-    "price": 28.29,
-    "comparePrice": "35,36 kr/kg",
-    "protein100g": 24,
-    "kcal100g": 340,
-    "totalProtein": 192,
-    "proteinPerKr": 6.786850477200424,
-    "proteinPer100Kcal": 7.0588235294117645,
-    "kcalPerKr": 96.14704842700601,
-    "deffScore": 47.90717983906182,
-    "bulkScore": 102.93389890420644,
-    "sourceUrl": "https://www.willys.se/produkt/Roda-Linser-101310192_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Torrvikt. Pris från jmf-pris i sökresultat; näring uppskattad.",
-    "dataQuality": "Pris hittad; näring uppskattad"
-  },
-  {
-    "product": "Små Vita Bönor 800g",
-    "brand": "Eldorado",
-    "store": "Willys",
-    "category": "Linser/bönor",
-    "packageSize": 800,
-    "edibleWeight": 800,
-    "price": 28.29,
-    "comparePrice": "35,36 kr/kg",
-    "protein100g": 21,
-    "kcal100g": 300,
-    "totalProtein": 168,
-    "proteinPerKr": 5.938494167550371,
-    "proteinPer100Kcal": 7.000000000000001,
-    "kcalPerKr": 84.83563096500531,
-    "deffScore": 41.5694591728526,
-    "bulkScore": 90.77412513255568,
-    "sourceUrl": "https://www.willys.se/produkt/Sma-Vita-Bonor-101334235_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Torrvikt. Pris från jmf-pris i sökresultat; näring uppskattad.",
-    "dataQuality": "Pris hittad; näring uppskattad"
-  },
-  {
-    "product": "Naturell Kvarg 0,3% 500g",
-    "brand": "Eldorado",
-    "store": "Willys",
-    "category": "Kvarg",
-    "packageSize": 500,
-    "edibleWeight": 500,
-    "price": 13.5,
-    "comparePrice": "27,00 kr/kg",
-    "protein100g": 12,
-    "kcal100g": 65,
-    "totalProtein": 60,
-    "proteinPerKr": 4.444444444444445,
-    "proteinPer100Kcal": 18.461538461538463,
-    "kcalPerKr": 24.074074074074073,
-    "deffScore": 82.05128205128206,
-    "bulkScore": 28.51851851851852,
-    "sourceUrl": "https://www.willys.se/produkt/Naturell-Kvarg-0-3procent-101232098_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Pris från jmf-pris i sökresultat; protein/kcal bör verifieras.",
-    "dataQuality": "Pris hittad; näring uppskattad"
-  },
-  {
-    "product": "Naturell Kvarg 0,2% 900g",
-    "brand": "Garant",
-    "store": "Willys",
-    "category": "Kvarg",
-    "packageSize": 900,
-    "edibleWeight": 900,
-    "price": 27.9,
-    "comparePrice": "31,00 kr/kg",
-    "protein100g": 11,
-    "kcal100g": 60,
-    "totalProtein": 99,
-    "proteinPerKr": 3.548387096774194,
-    "proteinPer100Kcal": 18.333333333333332,
-    "kcalPerKr": 19.35483870967742,
-    "deffScore": 65.05376344086022,
-    "bulkScore": 22.903225806451616,
-    "sourceUrl": "https://www.willys.se/produkt/Naturell-Kvarg-0-2procent-101780822_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Pris/protein från sökresultat; kcal måste verifieras på etikett.",
-    "dataQuality": "Pris+protein hittad; kcal uppskattad"
-  },
-  {
-    "product": "Keso Naturell 4% 500g",
-    "brand": "Keso",
-    "store": "Willys",
-    "category": "Keso",
-    "packageSize": 500,
-    "edibleWeight": 500,
-    "price": 19.75,
-    "comparePrice": "39,50 kr/kg",
-    "protein100g": 13,
-    "kcal100g": 90,
-    "totalProtein": 65,
-    "proteinPerKr": 3.2911392405063293,
-    "proteinPer100Kcal": 14.444444444444443,
-    "kcalPerKr": 22.78481012658228,
-    "deffScore": 47.53867791842475,
-    "bulkScore": 26.075949367088608,
-    "sourceUrl": "https://www.willys.se/produkt/Keso-Naturell-4procent-100013450_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Protein och jmf-pris från sökresultat; kcal uppskattad.",
-    "dataQuality": "Pris+protein hittad; kcal uppskattad"
-  },
-  {
-    "product": "Tonfisk Vatten 170/120g",
-    "brand": "Eldorado",
-    "store": "Willys",
-    "category": "Tonfisk",
-    "packageSize": 170,
-    "edibleWeight": 120,
-    "price": 9.36,
-    "comparePrice": "78,00 kr/kg",
-    "protein100g": 24,
-    "kcal100g": 110,
-    "totalProtein": 28.799999999999997,
-    "proteinPerKr": 3.0769230769230766,
-    "proteinPer100Kcal": 21.818181818181817,
-    "kcalPerKr": 14.102564102564104,
-    "deffScore": 67.13286713286712,
-    "bulkScore": 17.179487179487182,
-    "sourceUrl": "https://www.willys.se/produkt/Tonfisk-Vatten-101458683_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Ätbar vikt satt till avrunnen vikt 120g. Protein/jmf-pris från sökresultat.",
-    "dataQuality": "Pris+protein hittad; kcal uppskattad"
-  },
-  {
-    "product": "Naturell Mild Kvarg Laktosfri 0,2% 1kg",
-    "brand": "Arla",
-    "store": "Willys",
-    "category": "Kvarg",
-    "packageSize": 1000,
-    "edibleWeight": 1000,
-    "price": 36.5,
-    "comparePrice": "36,50 kr/kg",
-    "protein100g": 10,
-    "kcal100g": 60,
-    "totalProtein": 100,
-    "proteinPerKr": 2.73972602739726,
-    "proteinPer100Kcal": 16.666666666666664,
-    "kcalPerKr": 16.438356164383563,
-    "deffScore": 45.662100456621,
-    "bulkScore": 19.178082191780824,
-    "sourceUrl": "https://www.willys.se/produkt/Naturell-Mild-Kvarg-Laktosfri-0-2procent-101367016_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Jmf-pris från sökresultat; näring bör verifieras.",
-    "dataQuality": "Pris hittad; näring uppskattad"
-  },
-  {
-    "product": "Kyckling Filé Fryst 2kg",
-    "brand": "Eldorado",
-    "store": "Willys",
-    "category": "Kyckling",
-    "packageSize": 2000,
-    "edibleWeight": 2000,
-    "price": 139,
-    "comparePrice": "69,50 kr/kg",
-    "protein100g": 18,
-    "kcal100g": 100,
-    "totalProtein": 360,
-    "proteinPerKr": 2.5899280575539567,
-    "proteinPer100Kcal": 18,
-    "kcalPerKr": 14.388489208633093,
-    "deffScore": 46.61870503597122,
-    "bulkScore": 16.97841726618705,
-    "sourceUrl": "https://www.willys.se/produkt/Kyckling-File-Fryst-101266948_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Pris från sökresultat; näring bör verifieras på förpackning.",
-    "dataQuality": "Pris hittad; näring uppskattad"
-  },
-  {
-    "product": "Kyckling Innerfilé Fryst 700g",
-    "brand": "Eldorado",
-    "store": "Willys",
-    "category": "Kyckling",
-    "packageSize": 700,
-    "edibleWeight": 700,
-    "price": 49.9,
-    "comparePrice": "71,29 kr/kg",
-    "protein100g": 18,
-    "kcal100g": 100,
-    "totalProtein": 126,
-    "proteinPerKr": 2.5250501002004007,
-    "proteinPer100Kcal": 18,
-    "kcalPerKr": 14.02805611222445,
-    "deffScore": 45.45090180360721,
-    "bulkScore": 16.55310621242485,
-    "sourceUrl": "https://www.willys.se/produkt/Kyckling-Innerfile-Fryst-101294827_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Pris från sökresultat; näring bör verifieras.",
-    "dataQuality": "Pris hittad; näring uppskattad"
-  },
-  {
-    "product": "Ägg 24p Frigående Inomhus Medium",
-    "brand": "Garant",
-    "store": "Willys",
-    "category": "Ägg",
-    "packageSize": 1200,
-    "edibleWeight": 1200,
-    "price": 60,
-    "comparePrice": "2,50 kr/st",
-    "protein100g": 12,
-    "kcal100g": 143,
-    "totalProtein": 144,
-    "proteinPerKr": 2.4,
-    "proteinPer100Kcal": 8.391608391608392,
-    "kcalPerKr": 28.6,
-    "deffScore": 20.13986013986014,
-    "bulkScore": 31,
-    "sourceUrl": "https://www.willys.se/produkt/agg-24p-Frigaende-Inomhus-Medium-101187348_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Ätbar vikt antagen 50g per ägg. Jmf-pris från sökresultat.",
-    "dataQuality": "Pris hittad; näring uppskattad"
-  },
-  {
-    "product": "Kyckling Filé Fryst 900g",
-    "brand": "Eldorado",
-    "store": "Willys",
-    "category": "Kyckling",
-    "packageSize": 900,
-    "edibleWeight": 900,
-    "price": 69.9,
-    "comparePrice": "77,67 kr/kg",
-    "protein100g": 18,
-    "kcal100g": 100,
-    "totalProtein": 162,
-    "proteinPerKr": 2.317596566523605,
-    "proteinPer100Kcal": 18,
-    "kcalPerKr": 12.875536480686694,
-    "deffScore": 41.71673819742489,
-    "bulkScore": 15.1931330472103,
-    "sourceUrl": "https://www.willys.se/produkt/Kyckling-File-Fryst-101266950_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Pris från sökresultat; näring bör verifieras.",
-    "dataQuality": "Pris hittad; näring uppskattad"
-  },
-  {
-    "product": "Tonfisk Vatten Finfördelad 170/120g",
-    "brand": "Eldorado",
-    "store": "Willys",
-    "category": "Tonfisk",
-    "packageSize": 170,
-    "edibleWeight": 120,
-    "price": 9.36,
-    "comparePrice": "78,00 kr/kg",
-    "protein100g": 18,
-    "kcal100g": 110,
-    "totalProtein": 21.599999999999998,
-    "proteinPerKr": 2.3076923076923075,
-    "proteinPer100Kcal": 16.363636363636363,
-    "kcalPerKr": 14.102564102564104,
-    "deffScore": 37.76223776223776,
-    "bulkScore": 16.410256410256412,
-    "sourceUrl": "https://www.willys.se/produkt/Tonfisk-Vatten-Finfordelad-101355565_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Ätbar vikt satt till avrunnen vikt 120g. Protein/jmf-pris från sökresultat.",
-    "dataQuality": "Pris+protein hittad; kcal uppskattad"
-  },
-  {
-    "product": "Ägg 15p Frigående Inomhus Medium",
-    "brand": "Garant",
-    "store": "Willys",
-    "category": "Ägg",
-    "packageSize": 750,
-    "edibleWeight": 750,
-    "price": 39.9,
-    "comparePrice": "2,66 kr/st",
-    "protein100g": 12,
-    "kcal100g": 143,
-    "totalProtein": 90,
-    "proteinPerKr": 2.255639097744361,
-    "proteinPer100Kcal": 8.391608391608392,
-    "kcalPerKr": 26.879699248120303,
-    "deffScore": 18.928439981071563,
-    "bulkScore": 29.135338345864664,
-    "sourceUrl": "https://www.willys.se/produkt/agg-15p-Frigaende-Inomhus-Medium-101479130_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Ätbar vikt antagen 50g per ägg. Protein/jmf-pris från sökresultat.",
-    "dataQuality": "Pris+protein hittad; kcal uppskattad"
-  },
-  {
-    "product": "Naturell Skyr Eko 0,2% 400g",
-    "brand": "Dairy Food",
-    "store": "Willys",
-    "category": "Skyr",
-    "packageSize": 400,
-    "edibleWeight": 400,
-    "price": 18.9,
-    "comparePrice": "47,25 kr/kg",
-    "protein100g": 10,
-    "kcal100g": 60,
-    "totalProtein": 40,
-    "proteinPerKr": 2.1164021164021167,
-    "proteinPer100Kcal": 16.666666666666664,
-    "kcalPerKr": 12.6984126984127,
-    "deffScore": 35.27336860670194,
-    "bulkScore": 14.814814814814817,
-    "sourceUrl": "https://www.willys.se/produkt/Naturell-Skyr-Eko-0-2procent-101708397_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Pris från jmf-pris i sökresultat; näring uppskattad.",
-    "dataQuality": "Pris hittad; näring uppskattad"
-  },
-  {
-    "product": "Keso Mini Naturell 1,5% 500g",
-    "brand": "Keso",
-    "store": "Willys",
-    "category": "Keso",
-    "packageSize": 500,
-    "edibleWeight": 500,
-    "price": 29.5,
-    "comparePrice": "59,00 kr/kg",
-    "protein100g": 12,
-    "kcal100g": 75,
-    "totalProtein": 60,
-    "proteinPerKr": 2.0338983050847457,
-    "proteinPer100Kcal": 16,
-    "kcalPerKr": 12.711864406779661,
-    "deffScore": 32.54237288135593,
-    "bulkScore": 14.745762711864407,
-    "sourceUrl": "https://www.willys.se/produkt/Keso-Mini-Naturell-1-5procent-100050882_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Protein och jmf-pris från sökresultat; kcal uppskattad.",
-    "dataQuality": "Pris+protein hittad; kcal uppskattad"
-  },
-  {
-    "product": "Keso Naturell 4% 250g",
-    "brand": "Keso",
-    "store": "Willys",
-    "category": "Keso",
-    "packageSize": 250,
-    "edibleWeight": 250,
-    "price": 16.5,
-    "comparePrice": "66,00 kr/kg",
-    "protein100g": 13,
-    "kcal100g": 90,
-    "totalProtein": 32.5,
-    "proteinPerKr": 1.9696969696969697,
-    "proteinPer100Kcal": 14.444444444444443,
-    "kcalPerKr": 13.636363636363637,
-    "deffScore": 28.45117845117845,
-    "bulkScore": 15.606060606060606,
-    "sourceUrl": "https://www.willys.se/produkt/Keso-Naturell-4procent-100013487_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Protein och jmf-pris från sökresultat; kcal uppskattad.",
-    "dataQuality": "Pris+protein hittad; kcal uppskattad"
-  },
-  {
-    "product": "Keso Vanilj 2,9% 500g",
-    "brand": "Keso",
-    "store": "Willys",
-    "category": "Keso",
-    "packageSize": 500,
-    "edibleWeight": 500,
-    "price": 31.9,
-    "comparePrice": "31,90 kr/st",
-    "protein100g": 10.5,
-    "kcal100g": 95,
-    "totalProtein": 52.5,
-    "proteinPerKr": 1.64576802507837,
-    "proteinPer100Kcal": 11.052631578947368,
-    "kcalPerKr": 14.890282131661444,
-    "deffScore": 18.190067645603037,
-    "bulkScore": 16.53605015673981,
-    "sourceUrl": "https://www.willys.se/produkt/Keso-Vanilj-2-9procent-101315806_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Pris från sökresultat; protein/kcal bör verifieras.",
-    "dataQuality": "Pris hittad; näring uppskattad"
-  },
-  {
-    "product": "Chocolate High Protein Chokladpudding 200g",
-    "brand": "Ehrmann High",
-    "store": "Willys",
-    "category": "Proteinpudding",
-    "packageSize": 200,
-    "edibleWeight": 200,
-    "price": 13.15,
-    "comparePrice": "65,75 kr/kg",
-    "protein100g": 10,
-    "kcal100g": 76,
-    "totalProtein": 20,
-    "proteinPerKr": 1.520912547528517,
-    "proteinPer100Kcal": 13.157894736842104,
-    "kcalPerKr": 11.55893536121673,
-    "deffScore": 20.01200720432259,
-    "bulkScore": 13.079847908745247,
-    "sourceUrl": "https://www.willys.se/produkt/Chocolate-High-Protein-Chokladpudding-101424100_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Pris från jmf-pris i sökresultat; protein antaget 20g/förp.",
-    "dataQuality": "Pris hittad; näring uppskattad"
-  },
-  {
-    "product": "Choklad Proteinpudding Laktosfri 180g",
-    "brand": "Valio PROfeel",
-    "store": "Willys",
-    "category": "Proteinpudding",
-    "packageSize": 180,
-    "edibleWeight": 180,
-    "price": 15.61,
-    "comparePrice": "86,72 kr/kg",
-    "protein100g": 11.1,
-    "kcal100g": 75,
-    "totalProtein": 19.98,
-    "proteinPerKr": 1.2799487508007688,
-    "proteinPer100Kcal": 14.799999999999999,
-    "kcalPerKr": 8.648302370275465,
-    "deffScore": 18.943241511851376,
-    "bulkScore": 9.928251121076233,
-    "sourceUrl": "https://www.willys.se/produkt/Choklad-Proteinpudding-Laktosfri-101340616_ST",
-    "priceDate": "2026-06-14",
-    "comment": "Sökresultat anger 20g protein/förp och jmf-pris. Kcal uppskattad.",
-    "dataQuality": "Pris+protein hittad; kcal uppskattad"
-  }
-];
+// === FYLL I DESSA TVÅ FRÅN SUPABASE → Project Settings → API ===
+const SUPABASE_URL = "KListra_in_Project_URL_här";
+const SUPABASE_ANON_KEY = "Klistra_in_anon_public_key_här";
 
-</script>
-  <script>
-const products = window.MAKROKOLLEN_PRODUCTS || [];
+let products = [];
+let currentMode = 'all';
 
 const $ = (id) => document.getElementById(id);
 const fmt = new Intl.NumberFormat('sv-SE', { maximumFractionDigits: 1 });
 const money = new Intl.NumberFormat('sv-SE', { style: 'currency', currency: 'SEK', maximumFractionDigits: 2 });
-let currentMode = 'all';
 
 function inferMacroCategory(p) {
   const text = `${p.category || ''} ${p.product || ''}`.toLowerCase();
@@ -721,10 +238,6 @@ function inferMacroCategory(p) {
   return 'Övrigt';
 }
 
-products.forEach(p => {
-  p.macroCategory = p.macroCategory || inferMacroCategory(p);
-});
-
 function n(value, digits = 1) {
   if (value === null || value === undefined || Number.isNaN(Number(value))) return '–';
   return fmt.format(Number(value));
@@ -732,14 +245,89 @@ function n(value, digits = 1) {
 
 function qualityClass(q = '') {
   const text = q.toLowerCase();
-  if (text.includes('protein hittad') || text.includes('pris+protein')) return 'warn';
   if (text.includes('verifierad')) return 'good';
   return 'warn';
 }
 
+function showLoading() {
+  $('productRows').innerHTML = `<tr><td colspan="8">Laddar produkter från Supabase...</td></tr>`;
+  $('totalProducts').textContent = '–';
+}
+
+function showError(message) {
+  $('productRows').innerHTML = `<tr><td colspan="8">${message}</td></tr>`;
+  $('emptyState').hidden = true;
+}
+
+function mapSupabaseRow(row) {
+  const proteinPerKr = Number(row.protein_per_kr ?? 0);
+  const kcalPerKr = Number(row.kcal_per_kr ?? 0);
+  const product = {
+    id: row.id,
+    product: row.name,
+    brand: row.brand,
+    store: row.store || 'Willys',
+    macroCategory: row.main_category,
+    category: row.sub_category,
+    packageSize: Number(row.package_size ?? 0),
+    packageUnit: row.package_unit || 'g',
+    price: Number(row.price ?? 0),
+    protein100g: Number(row.protein_per_100 ?? 0),
+    kcal100g: Number(row.kcal_per_100 ?? 0),
+    totalProtein: Number(row.total_protein ?? 0),
+    proteinPerKr,
+    proteinPer100Kcal: Number(row.protein_per_100kcal ?? 0),
+    kcalPerKr,
+    deffScore: Number(row.deff_score ?? 0),
+    bulkScore: kcalPerKr + proteinPerKr,
+    sourceUrl: row.product_url || '#',
+    imageUrl: row.image_url,
+    priceDate: row.checked_at,
+    verified: row.verified,
+    dataQuality: row.verified ? 'Verifierad' : 'MVP-data',
+    comparePrice: row.package_size ? `${n((row.price / row.package_size) * 1000, 1)} kr/kg` : ''
+  };
+  product.macroCategory = product.macroCategory || inferMacroCategory(product);
+  product.category = product.category || 'Övrigt';
+  return product;
+}
+
+async function loadProducts() {
+  showLoading();
+
+  if (SUPABASE_URL.includes('KListra_in') || SUPABASE_ANON_KEY.includes('Klistra_in')) {
+    showError('Supabase är inte kopplat ännu. Fyll i SUPABASE_URL och SUPABASE_ANON_KEY i index.html.');
+    return;
+  }
+
+  const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const { data, error } = await client
+    .from('product_scores')
+    .select('*')
+    .order('protein_per_kr', { ascending: false });
+
+  if (error) {
+    console.error(error);
+    showError('Kunde inte hämta produkter från Supabase. Kolla att product_scores finns och att public read-policy är skapad.');
+    return;
+  }
+
+  products = (data || []).map(mapSupabaseRow);
+  setup();
+}
+
+function resetSelectOptions(select, firstText) {
+  select.innerHTML = '';
+  const opt = document.createElement('option');
+  opt.value = 'all';
+  opt.textContent = firstText;
+  select.appendChild(opt);
+}
+
 function setup() {
-  const macroCategories = [...new Set(products.map(p => p.macroCategory).filter(Boolean))].sort((a,b) => a.localeCompare(b, 'sv'));
   const macroSelect = $('macroSelect');
+  resetSelectOptions(macroSelect, 'Alla varugrupper');
+  const macroCategories = [...new Set(products.map(p => p.macroCategory).filter(Boolean))].sort((a,b) => a.localeCompare(b, 'sv'));
   macroCategories.forEach(cat => {
     const opt = document.createElement('option');
     opt.value = cat;
@@ -747,33 +335,34 @@ function setup() {
     macroSelect.appendChild(opt);
   });
 
+  const categorySelect = $('categorySelect');
+  resetSelectOptions(categorySelect, 'Alla kategorier');
   const categories = [...new Set(products.map(p => p.category).filter(Boolean))].sort((a,b) => a.localeCompare(b, 'sv'));
-  const select = $('categorySelect');
   categories.forEach(cat => {
     const opt = document.createElement('option');
     opt.value = cat;
     opt.textContent = cat;
-    select.appendChild(opt);
+    categorySelect.appendChild(opt);
   });
 
-  $('searchInput').addEventListener('input', render);
-  $('macroSelect').addEventListener('change', render);
-  $('categorySelect').addEventListener('change', render);
-  $('sortSelect').addEventListener('change', render);
-  $('showBestDeff').addEventListener('click', () => {
+  $('searchInput').oninput = render;
+  $('macroSelect').onchange = render;
+  $('categorySelect').onchange = render;
+  $('sortSelect').onchange = render;
+  $('showBestDeff').onclick = () => {
     $('sortSelect').value = 'deffScore';
     currentMode = 'deff';
     document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.mode === 'deff'));
     location.hash = '#produkter';
     render();
-  });
+  };
 
   document.querySelectorAll('.chip').forEach(chip => {
-    chip.addEventListener('click', () => {
+    chip.onclick = () => {
       currentMode = chip.dataset.mode;
       document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c === chip));
       render();
-    });
+    };
   });
 
   renderStats();
@@ -789,7 +378,7 @@ function renderStats() {
   $('bestDeff').textContent = byDeff ? byDeff.product.replace(/\s\d.*$/, '') : '–';
   $('winnerName').textContent = byProtein?.product || '–';
   $('winnerMetric').textContent = n(byProtein?.proteinPerKr);
-  $('winnerText').textContent = byProtein ? `${byProtein.category} · ${money.format(byProtein.price)} · ${n(byProtein.totalProtein)} g protein/förp.` : 'Baserat på testdatan från Willys.';
+  $('winnerText').textContent = byProtein ? `${byProtein.category} · ${money.format(byProtein.price)} · ${n(byProtein.totalProtein)} g protein/förp.` : 'Produkter hämtas från Supabase.';
 }
 
 function getFiltered() {
@@ -799,7 +388,7 @@ function getFiltered() {
   const sort = $('sortSelect').value;
 
   let list = products.filter(p => {
-    const matchesQuery = !query || `${p.product} ${p.brand} ${p.category} ${p.macroCategory}`.toLowerCase().includes(query);
+    const matchesQuery = !query || `${p.product} ${p.brand || ''} ${p.category || ''} ${p.macroCategory || ''}`.toLowerCase().includes(query);
     const matchesMacro = macro === 'all' || p.macroCategory === macro;
     const matchesCat = cat === 'all' || p.category === cat;
     return matchesQuery && matchesMacro && matchesCat;
@@ -849,6 +438,9 @@ function render() {
   list.slice(0, 6).forEach(p => {
     const card = document.createElement('article');
     card.className = 'product-card';
+    const sourceLink = p.sourceUrl && p.sourceUrl !== '#'
+      ? `<a class="card-link" href="${p.sourceUrl}" target="_blank" rel="noopener">Öppna källa →</a>`
+      : '';
     card.innerHTML = `
       <h3>${p.product}</h3>
       <div class="card-meta">${p.brand || ''} · ${p.macroCategory || ''} · ${p.category || ''} · Prisdatum ${p.priceDate || '–'}</div>
@@ -858,13 +450,13 @@ function render() {
         <div class="card-metric"><span>Protein/100 kcal</span><strong>${n(p.proteinPer100Kcal)}</strong></div>
         <div class="card-metric"><span>Deff-score</span><strong>${n(p.deffScore)}</strong></div>
       </div>
-      <a class="card-link" href="${p.sourceUrl}" target="_blank" rel="noopener">Öppna källa →</a>
+      ${sourceLink}
     `;
     cards.appendChild(card);
   });
 }
 
-setup();
+loadProducts();
 
 </script>
 </body>
