@@ -3,461 +3,350 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MakroKollen – Mest näring för pengarna</title>
-  <meta name="description" content="Jämför matvaror efter protein per krona, deff-score och bulk-score." />
+  <title>MakroKollen – erbjudanden efter protein, kcal och pris</title>
+  <meta name="description" content="Hitta matvaror och erbjudanden som ger mest protein och näring för pengarna." />
   <style>
-:root {
-  --bg: #0a0f0d;
-  --panel: #101816;
-  --panel-2: #14211e;
-  --text: #f1f7f4;
-  --muted: #a7b8b1;
-  --line: rgba(255,255,255,.11);
-  --accent: #69f0ae;
-  --accent-2: #d1ff72;
-  --danger: #ffca8a;
-  --shadow: 0 24px 80px rgba(0,0,0,.34);
-}
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: radial-gradient(circle at 20% 0%, rgba(105,240,174,.18), transparent 35%),
-              radial-gradient(circle at 80% 10%, rgba(209,255,114,.11), transparent 30%),
-              var(--bg);
-  color: var(--text);
-}
-a { color: inherit; }
-.hero { padding: 24px clamp(18px, 4vw, 64px) 70px; }
-.nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 70px; }
-.brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: -.03em; font-size: 22px; }
-.brand-mark { display:grid; place-items:center; width:38px; height:38px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color:#0a0f0d; }
-.nav-link { color: var(--muted); text-decoration: none; border: 1px solid var(--line); padding: 10px 14px; border-radius: 999px; }
-.hero-grid { display:grid; grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr); gap: 28px; align-items: stretch; max-width: 1180px; margin-inline: auto; }
-.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: .16em; font-weight: 800; font-size: 12px; margin:0 0 10px; }
-h1 { font-size: clamp(42px, 7vw, 82px); line-height: .92; margin: 0 0 22px; letter-spacing: -.075em; max-width: 780px; }
-h2 { margin: 0; font-size: clamp(24px, 3vw, 36px); letter-spacing: -.045em; }
-.lead { color: var(--muted); font-size: clamp(17px, 2vw, 21px); line-height: 1.55; max-width: 690px; margin-bottom: 28px; }
-.hero-actions { display:flex; flex-wrap: wrap; gap: 12px; }
-.button, .chip { border: 0; cursor: pointer; font: inherit; }
-.button { padding: 13px 18px; border-radius: 14px; font-weight: 800; text-decoration: none; }
-.primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color:#07100d; }
-.secondary { background: rgba(255,255,255,.08); color: var(--text); border: 1px solid var(--line); }
-.hero-card { background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04)); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 28px; padding: 28px; display:flex; flex-direction:column; justify-content:space-between; min-height: 360px; }
-.mini-title, .muted, footer { color: var(--muted); }
-.winner-metric { margin: 26px 0; }
-.winner-metric span { font-size: 68px; font-weight: 900; letter-spacing: -.08em; color: var(--accent-2); display:block; }
-.winner-metric small { color: var(--muted); font-weight: 700; }
-main { width: min(1180px, calc(100% - 36px)); margin: -36px auto 0; }
-.stats { display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
-.stat-card, .panel, .product-card { background: rgba(16,24,22,.78); border: 1px solid var(--line); backdrop-filter: blur(18px); border-radius: 22px; box-shadow: 0 18px 55px rgba(0,0,0,.18); }
-.stat-card { padding: 18px; }
-.stat-card span { display:block; color: var(--muted); font-size: 13px; margin-bottom: 8px; }
-.stat-card strong { font-size: 22px; letter-spacing: -.04em; }
-.panel { padding: 22px; }
-.panel-head { display:flex; justify-content:space-between; gap: 20px; align-items: end; margin-bottom: 20px; }
-.panel-head .muted { max-width: 420px; line-height: 1.45; }
-.toolbar { display:grid; grid-template-columns: 1.2fr .7fr .7fr .8fr; gap: 12px; margin-bottom: 14px; }
-label span { display:block; font-size: 12px; color: var(--muted); margin-bottom: 6px; font-weight: 700; }
-input, select { width: 100%; background: rgba(255,255,255,.07); border: 1px solid var(--line); border-radius: 14px; color: var(--text); padding: 13px 14px; outline: none; }
-select option { color: #101816; }
-input:focus, select:focus { border-color: rgba(105,240,174,.65); box-shadow: 0 0 0 4px rgba(105,240,174,.10); }
-.chips { display:flex; flex-wrap:wrap; gap: 8px; margin-bottom: 16px; }
-.chip { background: rgba(255,255,255,.07); color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 9px 13px; font-weight: 800; }
-.chip.active { color: #08110d; background: var(--accent); border-color: transparent; }
-.table-wrap { overflow-x: auto; border-radius: 18px; border: 1px solid var(--line); }
-table { width: 100%; border-collapse: collapse; min-width: 860px; }
-th, td { padding: 14px 13px; text-align: left; border-bottom: 1px solid var(--line); }
-th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; background: rgba(255,255,255,.04); }
-tbody tr:hover { background: rgba(105,240,174,.06); }
-td strong { display:block; }
-.sub { color: var(--muted); font-size: 13px; margin-top: 2px; }
-.badge { display:inline-flex; align-items:center; border-radius:999px; padding: 5px 8px; background: rgba(255,255,255,.08); color: var(--muted); font-size: 12px; font-weight: 750; white-space: nowrap; }
-.badge.good { color: #0a0f0d; background: var(--accent-2); }
-.badge.warn { color: #201200; background: var(--danger); }
-.metric { font-weight: 850; color: var(--accent-2); }
-.cards-grid { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 18px 0 40px; }
-.product-card { padding: 18px; }
-.product-card h3 { margin: 0 0 6px; font-size: 18px; letter-spacing: -.03em; }
-.card-meta { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
-.card-metrics { display:grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-.card-metric { background: rgba(255,255,255,.06); border: 1px solid var(--line); border-radius: 16px; padding: 12px; }
-.card-metric span { display:block; color: var(--muted); font-size: 12px; margin-bottom: 4px; }
-.card-metric strong { font-size: 18px; }
-.card-link { display:inline-flex; margin-top: 14px; color: var(--accent); font-weight: 800; text-decoration: none; }
-.empty { text-align:center; color: var(--muted); padding: 26px; }
-footer { width:min(1180px, calc(100% - 36px)); margin: 0 auto; padding: 24px 0 40px; }
-@media (max-width: 860px) {
-  .hero-grid, .toolbar, .stats, .cards-grid { grid-template-columns: 1fr; }
-  .panel-head { display:block; }
-  .nav { margin-bottom: 44px; }
-  .hero-card { min-height: auto; }
-}
+    :root{
+      --red:#ef3f4a;
+      --red-dark:#d92f3a;
+      --green:#83d46b;
+      --blue:#6aa7ff;
+      --purple:#8f59ff;
+      --orange:#ff916b;
+      --bg:#f3f5f7;
+      --card:#ffffff;
+      --text:#111315;
+      --muted:#7b8794;
+      --line:#e5e9ef;
+      --shadow:0 12px 30px rgba(20,30,45,.10);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+    a{color:inherit;text-decoration:none}
+    button,input,select{font:inherit}
+    .topbar{position:sticky;top:0;z-index:40;background:#fff;box-shadow:0 2px 12px rgba(20,30,45,.07)}
+    .topbar-inner{height:72px;display:flex;align-items:center;gap:18px;width:min(1280px,calc(100% - 28px));margin:auto}
+    .brand{display:flex;align-items:center;gap:8px;font-weight:950;font-size:24px;letter-spacing:-.06em;white-space:nowrap}
+    .brand .red{color:var(--red)}
+    .brand-mark{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--red);color:#fff;font-weight:950;font-size:15px;box-shadow:0 6px 18px rgba(239,63,74,.32)}
+    .search-wrap{flex:1;position:relative;max-width:760px;margin-left:10px}
+    .search-wrap input{width:100%;height:46px;border:1.5px solid #b9c7d8;border-radius:999px;padding:0 48px;color:#17202a;outline:none;background:#fff}
+    .search-wrap input:focus{border-color:var(--red);box-shadow:0 0 0 4px rgba(239,63,74,.10)}
+    .search-icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:#8da1b5;font-size:19px}
+    .location-btn,.login-btn,.menu-btn{height:44px;border:1.5px solid #111;border-radius:999px;background:#fff;padding:0 16px;font-weight:800;display:flex;align-items:center;gap:8px;cursor:pointer;white-space:nowrap}
+    .login-btn{border:0;font-size:28px;padding:0 4px}.menu-btn{border:0;border-radius:12px;font-size:18px}
 
-</style>
+    .hero{background:linear-gradient(90deg,#da333d 0%,#ef414c 48%,#ef414c 100%);min-height:390px;position:relative;overflow:hidden;color:#fff}
+    .hero:before{content:"";position:absolute;left:-90px;bottom:-120px;width:430px;height:430px;border-radius:50%;background:radial-gradient(circle at 30% 35%,#fff7 0 8%,transparent 9%),radial-gradient(circle at 65% 26%,#fff5 0 6%,transparent 7%),rgba(255,255,255,.10);transform:rotate(-18deg)}
+    .hero:after{content:"🥬  🍅  🥖";position:absolute;left:22px;top:75px;font-size:72px;line-height:1.05;filter:drop-shadow(0 10px 12px rgba(0,0,0,.16));transform:rotate(-8deg);opacity:.95}
+    .hero-content{width:min(880px,calc(100% - 32px));margin:auto;text-align:center;padding:58px 0 50px;position:relative;z-index:2}
+    .hero h1{font-size:clamp(38px,5.6vw,68px);line-height:.94;letter-spacing:-.065em;margin:0 0 12px;font-weight:950}
+    .hero p{font-size:clamp(16px,2vw,22px);font-weight:750;line-height:1.25;margin:0 auto 28px;max-width:650px}
+    .hero-search{display:grid;grid-template-columns:1fr;gap:14px;max-width:660px;margin:auto}
+    .hero-search input{height:58px;border:0;border-radius:999px;text-align:center;padding:0 22px;box-shadow:0 10px 28px rgba(0,0,0,.12);font-weight:750;color:#67788c}
+    .hero-actions{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .pill-action{height:52px;border:0;border-radius:999px;font-weight:950;cursor:pointer;background:#fff;color:var(--red);box-shadow:0 10px 25px rgba(0,0,0,.13)}
+    .pill-action.secondary{background:#e9edf1;color:#636d78}.see-more{margin-top:28px;font-weight:850;display:inline-block}
+
+    main{width:min(1280px,calc(100% - 28px));margin:0 auto 80px}.section{padding:34px 0}.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:18px}.title{display:flex;align-items:center;gap:12px}.title h2{margin:0;font-size:28px;letter-spacing:-.04em}.square-icon{width:44px;height:44px;border-radius:10px;background:#fff;display:grid;place-items:center;box-shadow:var(--shadow);border-top:4px solid var(--green);font-size:23px}.arrow{font-size:24px}.carousel-controls{display:flex;gap:12px}.round{width:48px;height:48px;border-radius:50%;border:0;background:#fff;box-shadow:var(--shadow);font-size:26px;font-weight:900;cursor:pointer}
+    .cards-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}.offer-card,.store-card,.category-card,.product-card,.info-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}.offer-card{min-height:365px;border-top:5px solid var(--green);padding:18px;display:flex;flex-direction:column;text-align:center;position:relative}.offer-img{height:106px;border-radius:16px;background:linear-gradient(135deg,#eef6ff,#fff);display:grid;place-items:center;font-size:52px;margin-bottom:12px}.offer-card h3{font-size:16px;line-height:1.1;margin:0 0 4px;min-height:38px}.offer-card .brandline{font-size:13px;color:#5c6671;min-height:32px}.price{font-size:25px;color:var(--red);font-weight:950;margin:18px 0 2px}.storeline{color:#9aa9b9;font-weight:900;font-size:13px}.macroline{font-size:12px;color:#54606c;background:#f4f6f8;border-radius:999px;padding:7px 9px;margin-top:auto}.card-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:14px}.dots{font-size:24px;font-weight:950}.plus{border:0;background:var(--red);color:#fff;border-radius:999px;width:84px;height:36px;font-size:24px;line-height:0;cursor:pointer}
+
+    .store-card{height:150px;display:grid;place-items:center;border-top:5px solid var(--blue);cursor:pointer;transition:.15s transform}.store-card:hover,.category-card:hover,.offer-card:hover,.product-card:hover{transform:translateY(-3px)}.store-logo{font-size:30px;font-weight:950;letter-spacing:-.05em}.store-logo.red{color:var(--red)}.store-logo.green{color:#13a858}.store-logo.blue{color:#176fff}.store-logo.yellow{color:#f2c300;text-shadow:1px 1px #174ea6}.store-logo.black{color:#111}.store-small{color:#8a98a8;font-weight:850;font-size:13px;margin-top:5px;text-align:center}.category-card{height:170px;display:flex;flex-direction:column}.cat-color{height:104px;display:grid;place-items:center;font-size:52px}.cat-name{flex:1;display:grid;place-items:center;text-align:center;font-weight:950;font-size:14px;padding:8px}.cat-mejeri{background:#aee9e4}.cat-kolonial{background:#efc58d}.cat-kott{background:#ffcfd6}.cat-fisk{background:#df79b0}.cat-protein{background:#ff8d63}.cat-veg{background:#c79284}.cat-eko{background:#8cb57c}
+
+    .dashboard{display:grid;grid-template-columns:1fr;gap:18px}.filters{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}.filters-grid{display:grid;grid-template-columns:1.3fr repeat(4,1fr);gap:12px}.field label{display:block;color:#6e7d8d;font-weight:900;font-size:12px;margin-bottom:6px;text-transform:uppercase;letter-spacing:.03em}.field input,.field select{width:100%;height:44px;border:1px solid var(--line);border-radius:14px;padding:0 12px;background:#f7f9fb;color:#12181f;outline:none}.field input:focus,.field select:focus{border-color:var(--red);box-shadow:0 0 0 4px rgba(239,63,74,.10)}
+    .product-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.product-card{padding:20px}.product-top{display:flex;justify-content:space-between;gap:14px}.product-card h3{margin:0 0 5px;font-size:19px;line-height:1.1}.tag{display:inline-flex;align-items:center;border-radius:999px;background:#f1f4f7;color:#657487;padding:6px 10px;font-size:12px;font-weight:900;white-space:nowrap}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}.metric{background:#f6f8fa;border:1px solid var(--line);border-radius:15px;padding:12px}.metric span{display:block;color:#748294;font-size:11px;font-weight:950;text-transform:uppercase}.metric strong{display:block;font-size:20px;color:var(--red);letter-spacing:-.04em;margin-top:5px}.product-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:14px;color:#607080;font-size:13px;font-weight:800}.source-link{color:var(--red);font-weight:950}.empty{background:#fff;border-radius:var(--radius);padding:28px;text-align:center;color:#6d7783;box-shadow:var(--shadow)}
+    .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-weight:900;color:#607080;cursor:pointer}.chip.active{background:var(--red);color:#fff;border-color:var(--red)}
+    .article-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}.article{height:290px;border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow)}.article-img{height:210px;display:grid;place-items:center;color:#fff;font-size:44px;font-weight:950;text-align:center;padding:20px;background:linear-gradient(135deg,#315a32,#9cd272)}.article:nth-child(2) .article-img{background:linear-gradient(135deg,#1e1e30,#ef3f4a)}.article-title{height:80px;display:flex;align-items:center;padding:0 28px;font-size:22px;font-weight:950;letter-spacing:-.04em}
+    .bottom-space{height:40px}.notice{background:#fff;border-left:6px solid var(--red);padding:16px 18px;border-radius:16px;box-shadow:var(--shadow);color:#5c6670;line-height:1.45;margin-bottom:22px}.notice strong{color:#121820}.hidden{display:none!important}
+
+    .drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.28);z-index:60;display:none}.drawer{position:fixed;right:0;top:0;height:100vh;width:min(360px,94vw);background:#fff;z-index:70;box-shadow:-20px 0 50px rgba(0,0,0,.18);transform:translateX(105%);transition:.2s transform;padding:24px;overflow:auto}.drawer.open{transform:translateX(0)}.drawer-backdrop.open{display:block}.drawer-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.close{border:0;background:transparent;font-size:34px;font-weight:950;cursor:pointer}.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.menu-tile{height:118px;border:1px solid var(--line);border-radius:18px;display:grid;place-items:center;text-align:center;font-weight:950;background:#fff;box-shadow:0 7px 18px rgba(20,30,45,.08);border-top:4px solid var(--red)}.menu-tile.big{grid-column:1/-1;height:126px;border:2px solid #111}.menu-tile span{display:block;font-size:28px;margin-bottom:8px}
+
+    @media (max-width:1000px){.cards-row{grid-template-columns:repeat(3,minmax(0,1fr))}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.filters-grid{grid-template-columns:1fr 1fr}.hero:after{opacity:.20}.topbar-inner{gap:8px}.location-btn span,.menu-btn span{display:none}.search-wrap{margin-left:0}}
+    @media (max-width:680px){.topbar-inner{height:64px;width:calc(100% - 16px)}.brand{font-size:20px}.brand-mark{width:24px;height:24px}.search-wrap{display:none}.hero{min-height:440px}.hero-content{padding:42px 0}.hero-actions{grid-template-columns:1fr}.cards-row,.product-grid,.article-grid{grid-template-columns:1fr}.filters-grid{grid-template-columns:1fr}.section-head{align-items:flex-start}.carousel-controls{display:none}.offer-card{min-height:330px}.article{height:250px}.article-img{height:175px}.article-title{height:75px;font-size:18px}.hero h1{font-size:44px}.hero p{font-size:16px}.section{padding:26px 0}.title h2{font-size:24px}.location-btn{font-size:13px;padding:0 12px}.login-btn{font-size:24px}}
+  </style>
 </head>
 <body>
-  <header class="hero">
-    <nav class="nav">
-      <div class="brand"><span class="brand-mark">M</span><span>MakroKollen</span></div>
-      <a class="nav-link" href="#produkter">Se produkter</a>
-    </nav>
-    <section class="hero-grid">
-      <div>
-        <p class="eyebrow">Mat smartare, träna billigare</p>
-        <h1>Hitta mest protein för pengarna.</h1>
-        <p class="lead">Jämför matvaror efter protein per krona, protein per 100 kcal och prisvärde för deff, bulk och studentbudget. Just nu testas MakroKollen på utvalda Willys-varor.</p>
-        <div class="hero-actions">
-          <a class="button primary" href="#produkter">Utforska topplistan</a>
-          <button class="button secondary" id="showBestDeff">Visa bäst för deff</button>
-        </div>
-      </div>
-      <aside class="hero-card" aria-label="Bästa produkter">
-        <p class="mini-title">Snabb vinnare just nu</p>
-        <h2 id="winnerName">–</h2>
-        <div class="winner-metric"><span id="winnerMetric">–</span><small>g protein/kr</small></div>
-        <p id="winnerText">Baserat på testdatan från Willys.</p>
-      </aside>
-    </section>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top" aria-label="MakroKollen startsida"><span class="red">makro</span>kollen <span class="brand-mark">M</span></a>
+      <div class="search-wrap"><span class="search-icon">⌕</span><input id="topSearch" type="search" placeholder="Sök produkter, erbjudanden eller jämför protein per krona" /></div>
+      <button class="location-btn" id="locationButton">⌖ <span id="locationText">Falkenberg</span></button>
+      <button class="login-btn" title="Logga in senare">↪</button>
+      <button class="menu-btn" id="openMenu">☰ <span>Meny</span></button>
+    </div>
   </header>
 
-  <main>
-    <section class="stats" aria-label="Sammanfattning">
-      <article class="stat-card">
-        <span>Produkter</span>
-        <strong id="totalProducts">0</strong>
-      </article>
-      <article class="stat-card">
-        <span>Bäst protein/kr</span>
-        <strong id="bestProtein">–</strong>
-      </article>
-      <article class="stat-card">
-        <span>Bäst deff-score</span>
-        <strong id="bestDeff">–</strong>
-      </article>
-      <article class="stat-card">
-        <span>Butik</span>
-        <strong>Willys</strong>
-      </article>
-    </section>
-
-    <section class="panel" id="produkter">
-      <div class="panel-head">
-        <div>
-          <p class="eyebrow">Topplista</p>
-          <h2>Billigaste proteinvarorna just nu</h2>
+  <section class="hero" id="top">
+    <div class="hero-content">
+      <h1>Hitta mest protein där du bor</h1>
+      <p>Jämför matvaror, kampanjer och butiker efter protein per krona, kcal och egna MakroKollen-score.</p>
+      <div class="hero-search">
+        <input id="heroLocation" placeholder="Postnr eller ort" />
+        <div class="hero-actions">
+          <button class="pill-action" id="useLocation">⌖ Min plats</button>
+          <button class="pill-action secondary" id="setLocation">Sök ort i fältet</button>
         </div>
-        <p class="muted">Pris och näring uppdateras manuellt i testversionen. Vissa värden behöver verifieras innan skarp lansering.</p>
       </div>
+      <a class="see-more" href="#offers">Se bästa erbjudanden ↓</a>
+    </div>
+  </section>
 
-      <div class="toolbar">
-        <label class="search">
-          <span>Sök</span>
-          <input id="searchInput" type="search" placeholder="Sök kvarg, tonfisk, kyckling..." />
-        </label>
-        <label>
-          <span>Varugrupp</span>
-          <select id="macroSelect">
-            <option value="all">Alla varugrupper</option>
-          </select>
-        </label>
-        <label>
-          <span>Detaljkategori</span>
-          <select id="categorySelect">
-            <option value="all">Alla kategorier</option>
-          </select>
-        </label>
-        <label>
-          <span>Sortera</span>
-          <select id="sortSelect">
-            <option value="proteinPerKr">Protein per krona</option>
-            <option value="deffScore">Deff-score</option>
-            <option value="proteinPer100Kcal">Protein per 100 kcal</option>
-            <option value="bulkScore">Bulk-score</option>
-            <option value="priceAsc">Lägst pris</option>
-          </select>
-        </label>
+  <main>
+    <section class="section" id="offers">
+      <div class="section-head">
+        <div class="title"><div class="square-icon">🏷️</div><h2>Erbjudanden nära dig <span class="arrow">›</span></h2></div>
+        <div class="carousel-controls"><button class="round">‹</button><button class="round">›</button></div>
       </div>
-
-      <div class="chips" id="quickFilters">
-        <button class="chip active" data-mode="all">Alla</button>
-        <button class="chip" data-mode="deff">Deff</button>
-        <button class="chip" data-mode="bulk">Bulk</button>
-        <button class="chip" data-mode="student">Studentbudget</button>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Produkt</th>
-              <th>Varugrupp</th>
-              <th>Pris</th>
-              <th>Protein/kr</th>
-              <th>Protein/100 kcal</th>
-              <th>Deff</th>
-              <th>Datakvalitet</th>
-            </tr>
-          </thead>
-          <tbody id="productRows"></tbody>
-        </table>
-      </div>
-      <p class="empty" id="emptyState" hidden>Inga produkter matchade filtren.</p>
+      <div class="notice"><strong>MakroKollen-vinkel:</strong> korten nedan räknar inte bara pris, utan även protein/kr, protein/100 kcal och deff-score. Erbjudanden kommer från Supabase-tabellen <strong>offers</strong> när den är ifylld.</div>
+      <div class="cards-row" id="offersGrid"></div>
     </section>
 
-    <section class="cards-grid" id="productCards" aria-label="Produktkort"></section>
+    <section class="section" id="stores">
+      <div class="section-head">
+        <div class="title"><div class="square-icon" style="border-top-color:var(--blue)">🏬</div><h2>Butiker <span class="arrow">›</span></h2></div>
+        <div class="carousel-controls"><button class="round">‹</button><button class="round">›</button></div>
+      </div>
+      <div class="cards-row" id="storesGrid"></div>
+    </section>
+
+    <section class="section" id="categories">
+      <div class="section-head">
+        <div class="title"><div class="square-icon" style="border-top-color:var(--orange)">▤</div><h2>Kategorier <span class="arrow">›</span></h2></div>
+        <div class="carousel-controls"><button class="round">‹</button><button class="round">›</button></div>
+      </div>
+      <div class="cards-row" id="categoriesGrid"></div>
+    </section>
+
+    <section class="section" id="compare">
+      <div class="section-head">
+        <div class="title"><div class="square-icon" style="border-top-color:var(--purple)">⚖️</div><h2>Jämför makros <span class="arrow">›</span></h2></div>
+      </div>
+      <div class="filters">
+        <div class="filters-grid">
+          <div class="field"><label>Sök</label><input id="searchInput" type="search" placeholder="Sök kvarg, kyckling, tonfisk..." /></div>
+          <div class="field"><label>Butik</label><select id="storeFilter"><option value="all">Alla butiker</option></select></div>
+          <div class="field"><label>Varugrupp</label><select id="mainFilter"><option value="all">Alla varugrupper</option></select></div>
+          <div class="field"><label>Kategori</label><select id="subFilter"><option value="all">Alla kategorier</option></select></div>
+          <div class="field"><label>Sortera</label><select id="sortSelect"><option value="protein_per_kr">Protein per krona</option><option value="deff_score">Bäst för deff</option><option value="protein_per_100kcal">Protein per 100 kcal</option><option value="kcal_per_kr">Kcal per krona</option><option value="price">Lägst pris</option></select></div>
+        </div>
+        <div class="chips" id="quickChips"></div>
+      </div>
+      <div class="product-grid" id="productsGrid"></div>
+    </section>
+
+    <section class="section" id="aktuellt">
+      <div class="section-head">
+        <div class="title"><div class="square-icon" style="border-top-color:var(--purple)">📰</div><h2>Aktuellt <span class="arrow">›</span></h2></div>
+      </div>
+      <div class="article-grid">
+        <article class="article"><div class="article-img">STUDENT<br>MATKASSE<br>2026</div><div class="article-title">Bygg en billig deff-vecka med mest protein per krona</div></article>
+        <article class="article"><div class="article-img">KVARG<br>vs<br>KESO</div><div class="article-title">Så jämför MakroKollen livsmedel efter protein och kcal</div></article>
+      </div>
+    </section>
+    <div class="bottom-space"></div>
   </main>
 
-  <footer>
-    <p>MakroKollen MVP · Testdata från Willys · Verifiera pris och näring innan publicering.</p>
-  </footer>
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="drawer" id="drawer">
+    <div class="drawer-head"><button class="location-btn">⌖ Falkenberg</button><button class="close" id="closeMenu">×</button></div>
+    <div class="menu-grid">
+      <a class="menu-tile big" href="#top"><div><span>⌂</span>Hem</div></a>
+      <a class="menu-tile" href="#offers"><div><span>🏷️</span>Erbjudanden</div></a>
+      <a class="menu-tile" href="#stores"><div><span>🏬</span>Butiker</div></a>
+      <a class="menu-tile" href="#compare"><div><span>⚖️</span>Jämför priser</div></a>
+      <a class="menu-tile" href="#categories"><div><span>▤</span>Kategorier</div></a>
+      <a class="menu-tile" href="#aktuellt"><div><span>📰</span>Aktuellt</div></a>
+      <a class="menu-tile" href="#"><div><span>🔒</span>Bevakningar</div></a>
+      <a class="menu-tile big" href="#"><div><span>☺</span>Logga in senare</div></a>
+    </div>
+  </aside>
 
-  
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-// === FYLL I DESSA TVÅ FRÅN SUPABASE → Project Settings → API ===
+<script>
 const SUPABASE_URL = "https://xbchahtjygkwghlidlui.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_8dUrotr9SWeoIYHOQNNzOw_IBw1jIsE";
+const headers = { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` };
 
+const storeLogos = [
+  {name:"Willys", class:"red", city:"Falkenberg"},
+  {name:"Coop", class:"green", city:"Slättenvägen"},
+  {name:"Lidl", class:"yellow", city:"Falkenberg"},
+  {name:"ICA", class:"red", city:"Nära / Maxi"},
+  {name:"Hemköp", class:"black", city:"Online"},
+  {name:"City Gross", class:"green", city:"Online"},
+  {name:"Rusta", class:"yellow", city:"Falkenberg"},
+  {name:"Dollarstore", class:"red", city:"Falkenberg"}
+];
+const categories = [
+  {name:"Mejeri", icon:"🥛", color:"cat-mejeri"},
+  {name:"Kolonial", icon:"🥖", color:"cat-kolonial"},
+  {name:"Kött, fisk & fågel", icon:"🍗", color:"cat-kott"},
+  {name:"Fisk", icon:"🐟", color:"cat-fisk"},
+  {name:"Proteinprodukter", icon:"💪", color:"cat-protein"},
+  {name:"Vegetariskt", icon:"🫘", color:"cat-veg"},
+  {name:"Ekologiskt", icon:"🌿", color:"cat-eko"}
+];
+const fallbackProducts = [
+  {name:"Havregryn 1kg",brand:"Garant",store:"Willys",main_category:"Kolonial",sub_category:"Havregryn",price:11.3,package_size:1000,package_unit:"g",protein_per_100:13,kcal_per_100:370,total_protein:130,protein_per_kr:11.5,protein_per_100kcal:3.5,deff_score:40.1,kcal_per_kr:327.4,verified:false},
+  {name:"Naturell Kvarg 500g",brand:"Lindahls",store:"Willys",main_category:"Mejeri",sub_category:"Kvarg",price:22.9,package_size:500,package_unit:"g",protein_per_100:11,kcal_per_100:60,total_protein:55,protein_per_kr:2.4,protein_per_100kcal:18.3,deff_score:44.0,kcal_per_kr:13.1,verified:true},
+  {name:"Tonfisk i vatten",brand:"Abba",store:"Willys",main_category:"Kött, fisk & fågel",sub_category:"Tonfisk",price:18.9,package_size:150,package_unit:"g",protein_per_100:24,kcal_per_100:110,total_protein:36,protein_per_kr:1.9,protein_per_100kcal:21.8,deff_score:41.5,kcal_per_kr:8.7,verified:false}
+];
 let products = [];
-let currentMode = 'all';
+let offers = [];
+let activeQuick = "all";
 
-const $ = (id) => document.getElementById(id);
-const fmt = new Intl.NumberFormat('sv-SE', { maximumFractionDigits: 1 });
-const money = new Intl.NumberFormat('sv-SE', { style: 'currency', currency: 'SEK', maximumFractionDigits: 2 });
-
-function inferMacroCategory(p) {
-  const text = `${p.category || ''} ${p.product || ''}`.toLowerCase();
-  if (text.includes('kyckling') || text.includes('tonfisk') || text.includes('kött') || text.includes('fisk')) return 'Kött, fisk & fågel';
-  if (text.includes('kvarg') || text.includes('keso') || text.includes('skyr') || text.includes('yoghurt') || text.includes('mjölk')) return 'Mejeri';
-  if (text.includes('havre') || text.includes('linser') || text.includes('bönor') || text.includes('ris') || text.includes('pasta')) return 'Kolonial';
-  if (text.includes('ägg')) return 'Ägg';
-  if (text.includes('proteinpudding') || text.includes('protein')) return 'Proteinprodukter';
-  return 'Övrigt';
+function fmt(n, digits=1){
+  if(n === null || n === undefined || Number.isNaN(Number(n))) return "–";
+  return Number(n).toLocaleString("sv-SE", {maximumFractionDigits: digits});
 }
-
-function n(value, digits = 1) {
-  if (value === null || value === undefined || Number.isNaN(Number(value))) return '–';
-  return fmt.format(Number(value));
+function money(n){ return `${fmt(n,2)} kr`; }
+function text(v){ return (v || "").toString(); }
+function productIcon(p){
+  const s = `${p.name} ${p.main_category} ${p.sub_category}`.toLowerCase();
+  if(s.includes("kvarg") || s.includes("keso") || s.includes("mejeri") || s.includes("yoghurt")) return "🥛";
+  if(s.includes("kyck") || s.includes("kött") || s.includes("fågel")) return "🍗";
+  if(s.includes("tonfisk") || s.includes("fisk") || s.includes("lax")) return "🐟";
+  if(s.includes("ägg")) return "🥚";
+  if(s.includes("havre") || s.includes("pasta") || s.includes("ris")) return "🥣";
+  if(s.includes("bön") || s.includes("lins")) return "🫘";
+  return "🛒";
 }
-
-function qualityClass(q = '') {
-  const text = q.toLowerCase();
-  if (text.includes('verifierad')) return 'good';
-  return 'warn';
+async function supabaseGet(path){
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, { headers });
+  if(!res.ok) throw new Error(await res.text());
+  return await res.json();
 }
-
-function showLoading() {
-  $('productRows').innerHTML = `<tr><td colspan="8">Laddar produkter från Supabase...</td></tr>`;
-  $('totalProducts').textContent = '–';
+async function loadData(){
+  try{
+    products = await supabaseGet("product_scores?select=*&order=protein_per_kr.desc.nullslast");
+    if(!Array.isArray(products) || products.length === 0) products = fallbackProducts;
+  } catch(e){
+    console.warn("Kunde inte hämta product_scores", e);
+    products = fallbackProducts;
+  }
+  try{
+    offers = await supabaseGet("offer_scores?select=*&is_active=eq.true&order=protein_per_kr.desc.nullslast");
+  } catch(e){
+    console.warn("Kunde inte hämta offer_scores, använder produkter som fallback", e);
+    offers = [];
+  }
+  renderAll();
 }
-
-function showError(message) {
-  $('productRows').innerHTML = `<tr><td colspan="8">${message}</td></tr>`;
-  $('emptyState').hidden = true;
+function renderStores(){
+  const grid = document.getElementById("storesGrid");
+  grid.innerHTML = storeLogos.map(s => `<button class="store-card" data-store="${s.name}"><div><div class="store-logo ${s.class}">${s.name}</div><div class="store-small">${s.city}</div></div></button>`).join("");
+  grid.querySelectorAll(".store-card").forEach(btn => btn.addEventListener("click", () => {
+    document.getElementById("storeFilter").value = btn.dataset.store;
+    document.getElementById("compare").scrollIntoView({behavior:"smooth"});
+    renderProducts();
+  }));
 }
-
-function mapSupabaseRow(row) {
-  const proteinPerKr = Number(row.protein_per_kr ?? 0);
-  const kcalPerKr = Number(row.kcal_per_kr ?? 0);
-  const product = {
-    id: row.id,
-    product: row.name,
-    brand: row.brand,
-    store: row.store || 'Willys',
-    macroCategory: row.main_category,
-    category: row.sub_category,
-    packageSize: Number(row.package_size ?? 0),
-    packageUnit: row.package_unit || 'g',
-    price: Number(row.price ?? 0),
-    protein100g: Number(row.protein_per_100 ?? 0),
-    kcal100g: Number(row.kcal_per_100 ?? 0),
-    totalProtein: Number(row.total_protein ?? 0),
-    proteinPerKr,
-    proteinPer100Kcal: Number(row.protein_per_100kcal ?? 0),
-    kcalPerKr,
-    deffScore: Number(row.deff_score ?? 0),
-    bulkScore: kcalPerKr + proteinPerKr,
-    sourceUrl: row.product_url || '#',
-    imageUrl: row.image_url,
-    priceDate: row.checked_at,
-    verified: row.verified,
-    dataQuality: row.verified ? 'Verifierad' : 'MVP-data',
-    comparePrice: row.package_size ? `${n((row.price / row.package_size) * 1000, 1)} kr/kg` : ''
+function renderCategories(){
+  const grid = document.getElementById("categoriesGrid");
+  grid.innerHTML = categories.map(c => `<button class="category-card" data-cat="${c.name}"><div class="cat-color ${c.color}">${c.icon}</div><div class="cat-name">${c.name}</div></button>`).join("");
+  grid.querySelectorAll(".category-card").forEach(btn => btn.addEventListener("click", () => {
+    document.getElementById("mainFilter").value = btn.dataset.cat;
+    document.getElementById("compare").scrollIntoView({behavior:"smooth"});
+    renderProducts();
+  }));
+}
+function renderFilters(){
+  const storeSet = new Set([...storeLogos.map(s=>s.name), ...products.map(p=>p.store).filter(Boolean), ...offers.map(o=>o.store).filter(Boolean)]);
+  const mainSet = new Set([...categories.map(c=>c.name), ...products.map(p=>p.main_category).filter(Boolean)]);
+  const subSet = new Set(products.map(p=>p.sub_category).filter(Boolean));
+  const fill = (id, set, first) => {
+    const el = document.getElementById(id);
+    const old = el.value || "all";
+    el.innerHTML = `<option value="all">${first}</option>` + [...set].sort().map(v=>`<option value="${v}">${v}</option>`).join("");
+    if([...el.options].some(o=>o.value===old)) el.value = old;
   };
-  product.macroCategory = product.macroCategory || inferMacroCategory(product);
-  product.category = product.category || 'Övrigt';
-  return product;
+  fill("storeFilter", storeSet, "Alla butiker");
+  fill("mainFilter", mainSet, "Alla varugrupper");
+  fill("subFilter", subSet, "Alla kategorier");
+  const chips = ["all","Mejeri","Kött, fisk & fågel","Kolonial","Proteinprodukter","Deff","Student" ];
+  document.getElementById("quickChips").innerHTML = chips.map(c=>`<button class="chip ${activeQuick===c?'active':''}" data-chip="${c}">${c==='all'?'Alla':c}</button>`).join("");
+  document.querySelectorAll(".chip").forEach(chip => chip.addEventListener("click",()=>{ activeQuick = chip.dataset.chip; renderFilters(); renderProducts(); }));
 }
-
-async function loadProducts() {
-  showLoading();
-
-  if (SUPABASE_URL.includes('KListra_in') || SUPABASE_ANON_KEY.includes('Klistra_in')) {
-    showError('Supabase är inte kopplat ännu. Fyll i SUPABASE_URL och SUPABASE_ANON_KEY i index.html.');
-    return;
-  }
-
-  const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  const { data, error } = await client
-    .from('product_scores')
-    .select('*')
-    .order('protein_per_kr', { ascending: false });
-
-  if (error) {
-    console.error(error);
-    showError('Kunde inte hämta produkter från Supabase. Kolla att product_scores finns och att public read-policy är skapad.');
-    return;
-  }
-
-  products = (data || []).map(mapSupabaseRow);
-  setup();
+function offerData(){
+  if(offers.length) return offers.slice(0,10);
+  return products.slice(0,10).map(p => ({...p, offer_id:p.id, offer_price:p.price, offer_quantity:1, unit_offer_price:p.price, offer_text:"Aktuellt pris", source:p.store, is_active:true}));
 }
-
-function resetSelectOptions(select, firstText) {
-  select.innerHTML = '';
-  const opt = document.createElement('option');
-  opt.value = 'all';
-  opt.textContent = firstText;
-  select.appendChild(opt);
+function renderOffers(){
+  const grid = document.getElementById("offersGrid");
+  const data = offerData().slice(0,5);
+  if(!data.length){ grid.innerHTML = `<div class="empty">Inga erbjudanden ännu. Lägg in rader i Supabase-tabellen offers.</div>`; return; }
+  grid.innerHTML = data.map(o => `
+    <article class="offer-card">
+      <div class="offer-img">${productIcon(o)}</div>
+      <h3>${text(o.name)}</h3>
+      <div class="brandline">${text(o.brand) || ""} ${o.package_size ? `, ${fmt(o.package_size,0)} ${text(o.package_unit)}` : ""}</div>
+      <div class="price">${o.offer_text && o.offer_text !== "Aktuellt pris" ? o.offer_text : money(o.unit_offer_price || o.offer_price || o.price)}</div>
+      <div class="storeline">${text(o.store)} ${text(o.city)}</div>
+      <div class="macroline">${fmt(o.protein_per_kr,2)} g protein/kr · ${fmt(o.protein_per_100kcal,1)} g/100 kcal</div>
+      <div class="card-bottom"><span class="dots">···</span><button class="plus">+</button></div>
+    </article>`).join("");
 }
-
-function setup() {
-  const macroSelect = $('macroSelect');
-  resetSelectOptions(macroSelect, 'Alla varugrupper');
-  const macroCategories = [...new Set(products.map(p => p.macroCategory).filter(Boolean))].sort((a,b) => a.localeCompare(b, 'sv'));
-  macroCategories.forEach(cat => {
-    const opt = document.createElement('option');
-    opt.value = cat;
-    opt.textContent = cat;
-    macroSelect.appendChild(opt);
-  });
-
-  const categorySelect = $('categorySelect');
-  resetSelectOptions(categorySelect, 'Alla kategorier');
-  const categories = [...new Set(products.map(p => p.category).filter(Boolean))].sort((a,b) => a.localeCompare(b, 'sv'));
-  categories.forEach(cat => {
-    const opt = document.createElement('option');
-    opt.value = cat;
-    opt.textContent = cat;
-    categorySelect.appendChild(opt);
-  });
-
-  $('searchInput').oninput = render;
-  $('macroSelect').onchange = render;
-  $('categorySelect').onchange = render;
-  $('sortSelect').onchange = render;
-  $('showBestDeff').onclick = () => {
-    $('sortSelect').value = 'deffScore';
-    currentMode = 'deff';
-    document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.mode === 'deff'));
-    location.hash = '#produkter';
-    render();
-  };
-
-  document.querySelectorAll('.chip').forEach(chip => {
-    chip.onclick = () => {
-      currentMode = chip.dataset.mode;
-      document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c === chip));
-      render();
-    };
-  });
-
-  renderStats();
-  render();
-}
-
-function renderStats() {
-  const byProtein = [...products].sort((a,b) => (b.proteinPerKr || 0) - (a.proteinPerKr || 0))[0];
-  const byDeff = [...products].sort((a,b) => (b.deffScore || 0) - (a.deffScore || 0))[0];
-
-  $('totalProducts').textContent = products.length;
-  $('bestProtein').textContent = byProtein ? byProtein.product.replace(/\s\d.*$/, '') : '–';
-  $('bestDeff').textContent = byDeff ? byDeff.product.replace(/\s\d.*$/, '') : '–';
-  $('winnerName').textContent = byProtein?.product || '–';
-  $('winnerMetric').textContent = n(byProtein?.proteinPerKr);
-  $('winnerText').textContent = byProtein ? `${byProtein.category} · ${money.format(byProtein.price)} · ${n(byProtein.totalProtein)} g protein/förp.` : 'Produkter hämtas från Supabase.';
-}
-
-function getFiltered() {
-  const query = $('searchInput').value.trim().toLowerCase();
-  const macro = $('macroSelect').value;
-  const cat = $('categorySelect').value;
-  const sort = $('sortSelect').value;
-
-  let list = products.filter(p => {
-    const matchesQuery = !query || `${p.product} ${p.brand || ''} ${p.category || ''} ${p.macroCategory || ''}`.toLowerCase().includes(query);
-    const matchesMacro = macro === 'all' || p.macroCategory === macro;
-    const matchesCat = cat === 'all' || p.category === cat;
-    return matchesQuery && matchesMacro && matchesCat;
-  });
-
-  if (currentMode === 'deff') {
-    list = list.filter(p => (p.proteinPer100Kcal || 0) >= 12 || (p.deffScore || 0) >= 40);
+function filteredProducts(){
+  const q = document.getElementById("searchInput").value.trim().toLowerCase();
+  const topQ = document.getElementById("topSearch").value.trim().toLowerCase();
+  const query = q || topQ;
+  const store = document.getElementById("storeFilter").value;
+  const main = document.getElementById("mainFilter").value;
+  const sub = document.getElementById("subFilter").value;
+  const sort = document.getElementById("sortSelect").value;
+  let list = [...products];
+  if(query) list = list.filter(p => `${p.name} ${p.brand} ${p.store} ${p.main_category} ${p.sub_category}`.toLowerCase().includes(query));
+  if(store !== "all") list = list.filter(p => text(p.store) === store);
+  if(main !== "all") list = list.filter(p => text(p.main_category) === main);
+  if(sub !== "all") list = list.filter(p => text(p.sub_category) === sub);
+  if(activeQuick !== "all"){
+    if(activeQuick === "Deff") list = list.filter(p => Number(p.protein_per_100kcal || 0) >= 10).sort((a,b)=>Number(b.deff_score||0)-Number(a.deff_score||0));
+    else if(activeQuick === "Student") list = list.filter(p => Number(p.protein_per_kr || 0) >= 1.5).sort((a,b)=>Number(b.protein_per_kr||0)-Number(a.protein_per_kr||0));
+    else list = list.filter(p => text(p.main_category) === activeQuick);
   }
-  if (currentMode === 'bulk') {
-    list = list.filter(p => (p.kcalPerKr || 0) >= 20 || (p.bulkScore || 0) >= 30);
-  }
-  if (currentMode === 'student') {
-    list = list.filter(p => (p.price || 0) <= 30 || (p.proteinPerKr || 0) >= 3);
-  }
-
-  list.sort((a,b) => {
-    if (sort === 'priceAsc') return (a.price || 999999) - (b.price || 999999);
-    return (b[sort] || 0) - (a[sort] || 0);
-  });
-
+  list.sort((a,b) => sort === "price" ? Number(a.price||0)-Number(b.price||0) : Number(b[sort]||0)-Number(a[sort]||0));
   return list;
 }
-
-function render() {
-  const list = getFiltered();
-  const tbody = $('productRows');
-  const cards = $('productCards');
-  tbody.innerHTML = '';
-  cards.innerHTML = '';
-  $('emptyState').hidden = list.length > 0;
-
-  list.forEach((p, i) => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${i + 1}</td>
-      <td><strong>${p.product}</strong><div class="sub">${p.brand || ''} · ${n(p.totalProtein)} g protein/förp.</div></td>
-      <td><strong>${p.macroCategory || 'Övrigt'}</strong><div class="sub">${p.category || '–'}</div></td>
-      <td>${money.format(p.price || 0)}<div class="sub">${p.comparePrice || ''}</div></td>
-      <td class="metric">${n(p.proteinPerKr)}</td>
-      <td>${n(p.proteinPer100Kcal)}</td>
-      <td>${n(p.deffScore)}</td>
-      <td><span class="badge ${qualityClass(p.dataQuality)}">${p.dataQuality || 'MVP-data'}</span></td>
-    `;
-    tbody.appendChild(tr);
-  });
-
-  list.slice(0, 6).forEach(p => {
-    const card = document.createElement('article');
-    card.className = 'product-card';
-    const sourceLink = p.sourceUrl && p.sourceUrl !== '#'
-      ? `<a class="card-link" href="${p.sourceUrl}" target="_blank" rel="noopener">Öppna källa →</a>`
-      : '';
-    card.innerHTML = `
-      <h3>${p.product}</h3>
-      <div class="card-meta">${p.brand || ''} · ${p.macroCategory || ''} · ${p.category || ''} · Prisdatum ${p.priceDate || '–'}</div>
-      <div class="card-metrics">
-        <div class="card-metric"><span>Pris</span><strong>${money.format(p.price || 0)}</strong></div>
-        <div class="card-metric"><span>Protein/kr</span><strong>${n(p.proteinPerKr)}</strong></div>
-        <div class="card-metric"><span>Protein/100 kcal</span><strong>${n(p.proteinPer100Kcal)}</strong></div>
-        <div class="card-metric"><span>Deff-score</span><strong>${n(p.deffScore)}</strong></div>
+function renderProducts(){
+  const grid = document.getElementById("productsGrid");
+  const list = filteredProducts();
+  if(!list.length){ grid.innerHTML = `<div class="empty">Inga produkter matchar filtren ännu. Testa Alla butiker eller lägg in fler produkter i Supabase.</div>`; return; }
+  grid.innerHTML = list.slice(0,60).map(p => `
+    <article class="product-card">
+      <div class="product-top">
+        <div><h3>${productIcon(p)} ${text(p.name)}</h3><div class="store-small" style="text-align:left">${text(p.brand)} · ${text(p.store)}</div></div>
+        <span class="tag">${text(p.main_category) || "Vara"}</span>
       </div>
-      ${sourceLink}
-    `;
-    cards.appendChild(card);
+      <div class="metrics">
+        <div class="metric"><span>Protein/kr</span><strong>${fmt(p.protein_per_kr,2)}</strong></div>
+        <div class="metric"><span>Deff-score</span><strong>${fmt(p.deff_score,1)}</strong></div>
+        <div class="metric"><span>Pris</span><strong>${fmt(p.price,2)}</strong></div>
+      </div>
+      <div class="product-foot">
+        <div>${fmt(p.total_protein,1)} g protein · ${fmt(p.kcal_per_100,0)} kcal/100g</div>
+        ${p.product_url ? `<a class="source-link" href="${p.product_url}" target="_blank" rel="noopener">Källa</a>` : `<span>${p.verified ? "Verifierad" : "Ej verifierad"}</span>`}
+      </div>
+    </article>`).join("");
+}
+function syncSearch(sourceId){
+  const source = document.getElementById(sourceId);
+  source.addEventListener("input", () => {
+    if(sourceId === "topSearch") document.getElementById("searchInput").value = source.value;
+    renderProducts();
   });
 }
-
-loadProducts();
-
+function renderAll(){ renderStores(); renderCategories(); renderFilters(); renderOffers(); renderProducts(); }
+["searchInput","storeFilter","mainFilter","subFilter","sortSelect"].forEach(id => document.getElementById(id).addEventListener("input", renderProducts));
+syncSearch("topSearch");
+document.getElementById("setLocation").addEventListener("click",()=>{ const v=document.getElementById("heroLocation").value.trim(); if(v) document.getElementById("locationText").textContent=v; });
+document.getElementById("useLocation").addEventListener("click",()=>{ document.getElementById("locationText").textContent="Min plats"; });
+const drawer=document.getElementById("drawer"), backdrop=document.getElementById("drawerBackdrop");
+document.getElementById("openMenu").addEventListener("click",()=>{drawer.classList.add("open");backdrop.classList.add("open")});
+document.getElementById("closeMenu").addEventListener("click",()=>{drawer.classList.remove("open");backdrop.classList.remove("open")});
+backdrop.addEventListener("click",()=>{drawer.classList.remove("open");backdrop.classList.remove("open")});
+drawer.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{drawer.classList.remove("open");backdrop.classList.remove("open")}));
+loadData();
 </script>
 </body>
 </html>
