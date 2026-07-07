@@ -57,8 +57,12 @@
 
     .store-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.store-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:var(--shadow-soft);display:grid;grid-template-columns:52px 1fr;gap:13px;align-items:center;text-align:left}.store-card:hover{border-color:#98c69b;background:#fbfff8}.store-logo{width:52px;height:52px;border-radius:18px;display:grid;place-items:center;background:var(--surface-2);font-weight:950;font-size:15px;letter-spacing:-.05em}.store-logo.willys{background:#ffe2dd;color:#a83224}.store-logo.coop{background:#dff7df;color:#087435}.store-logo.lidl{background:#fff0aa;color:#063f8d}.store-logo.ica{background:#ffe3e3;color:#d83232}.store-logo.hemköp,.store-logo.hemkop{background:#e8e2d8;color:#111}.store-name{font-weight:950;line-height:1.12}.store-meta{font-size:12px;color:var(--muted);font-weight:800;margin-top:4px}.category-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px}.category-card{border:1px solid var(--line);border-radius:22px;background:var(--surface);box-shadow:var(--shadow-soft);padding:16px;text-align:left;min-height:145px;display:flex;flex-direction:column;justify-content:space-between}.cat-icon{font-size:42px}.category-card strong{font-size:16px;letter-spacing:-.03em}.category-card span{font-size:12px;color:var(--muted);font-weight:800}.guide{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.guide-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow-soft)}.guide-card strong{display:block;font-size:18px;letter-spacing:-.035em}.guide-card p{margin:8px 0 0;color:var(--muted);font-weight:700;line-height:1.45}.empty{background:#fffdf8;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-soft);padding:26px;text-align:center;color:var(--muted);font-weight:800}.status{padding:11px 13px;background:#fff8df;border:1px solid #f0d782;border-radius:16px;color:#66581c;font-weight:850;margin-top:14px;font-size:13px}.hidden{display:none!important}
 
-    @media(max-width:980px){.nav{display:none}.menu-button{display:flex}.hero-inner{grid-template-columns:1fr;padding-top:34px}.hero-card{display:none}.hero-actions{grid-template-columns:1fr}.top-picks{grid-template-columns:1fr}.pick-card:first-child{grid-row:auto;min-height:auto}.pick-card{grid-template-columns:94px 1fr}.filters{grid-template-columns:1fr 1fr}.product-grid{grid-template-columns:1fr 1fr}.store-grid{grid-template-columns:1fr 1fr}.category-grid{grid-template-columns:1fr 1fr 1fr}.guide{grid-template-columns:1fr}.appbar-inner{height:66px}.brand{font-size:22px}.city-pill{margin-left:auto}.hero h1{font-size:48px}}
-    @media(max-width:640px){.appbar-inner{gap:9px}.brand span.word{display:none}.city-pill{max-width:132px;padding:0 11px}.hero-inner{width:min(100% - 22px,1220px)}.hero h1{font-size:42px}.hero p{font-size:16px}.primary-btn,.secondary-btn,.hero-search{height:52px}.section{padding:26px 0}.section-head{align-items:flex-start;flex-direction:column}.product-grid,.store-grid{grid-template-columns:1fr}.category-grid{grid-template-columns:1fr 1fr}.filters{grid-template-columns:1fr}.product-card-top{grid-template-columns:82px 1fr}.rating strong{font-size:25px}.top-picks{gap:12px}.pick-card{grid-template-columns:82px 1fr;padding:15px;border-radius:22px}.pick-card:first-child{grid-template-columns:1fr}.pick-rank{width:32px;height:32px;border-radius:12px}.pick-card:first-child .product-visual{height:122px}.preview-metrics{grid-template-columns:1fr}.hero-note{font-size:12px}}
+
+    .site-footer{background:linear-gradient(135deg,#12261b,#1d3427);color:#f8fff8;margin-top:34px;padding:54px 0 34px;border-top:1px solid rgba(255,255,255,.08)}
+    .footer-inner{width:min(1220px,calc(100% - 28px));margin:auto;display:grid;grid-template-columns:.9fr 1.25fr .9fr;gap:46px;align-items:start}.footer-brand{display:flex;align-items:center;gap:11px;font-size:27px;font-weight:950;letter-spacing:-.065em;margin-bottom:14px}.footer-badge{width:42px;height:42px;border-radius:16px;background:#e4ff92;color:#143d2b;display:grid;place-items:center;font-weight:950}.footer-col h3{margin:0 0 16px;font-size:22px;letter-spacing:-.04em}.footer-col p{margin:0;color:#c4d2c5;line-height:1.58;font-weight:650;max-width:510px}.footer-links{display:grid;gap:12px}.footer-links a{color:#c4d2c5;font-weight:850}.footer-links a:hover{color:#e4ff92}.contact-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:18px}.contact-card a{color:#e4ff92;font-weight:950;word-break:break-word}.footer-note{width:min(1220px,calc(100% - 28px));margin:30px auto 0;padding-top:18px;border-top:1px solid rgba(255,255,255,.10);color:#aab9ac;font-size:13px;font-weight:700;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}.footer-pill{display:inline-flex;align-items:center;gap:8px;border-radius:999px;background:rgba(228,255,146,.12);color:#e4ff92;padding:8px 11px;font-weight:950;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+
+    @media(max-width:980px){.footer-inner{grid-template-columns:1fr 1fr}.footer-inner .footer-col:nth-child(2){grid-column:1/-1}.footer-note{flex-direction:column}.nav{display:none}.menu-button{display:flex}.hero-inner{grid-template-columns:1fr;padding-top:34px}.hero-card{display:none}.hero-actions{grid-template-columns:1fr}.top-picks{grid-template-columns:1fr}.pick-card:first-child{grid-row:auto;min-height:auto}.pick-card{grid-template-columns:94px 1fr}.filters{grid-template-columns:1fr 1fr}.product-grid{grid-template-columns:1fr 1fr}.store-grid{grid-template-columns:1fr 1fr}.category-grid{grid-template-columns:1fr 1fr 1fr}.guide{grid-template-columns:1fr}.appbar-inner{height:66px}.brand{font-size:22px}.city-pill{margin-left:auto}.hero h1{font-size:48px}}
+    @media(max-width:640px){.site-footer{padding:38px 0 26px}.footer-inner{grid-template-columns:1fr;gap:28px}.footer-col h3{font-size:20px}.appbar-inner{gap:9px}.brand span.word{display:none}.city-pill{max-width:132px;padding:0 11px}.hero-inner{width:min(100% - 22px,1220px)}.hero h1{font-size:42px}.hero p{font-size:16px}.primary-btn,.secondary-btn,.hero-search{height:52px}.section{padding:26px 0}.section-head{align-items:flex-start;flex-direction:column}.product-grid,.store-grid{grid-template-columns:1fr}.category-grid{grid-template-columns:1fr 1fr}.filters{grid-template-columns:1fr}.product-card-top{grid-template-columns:82px 1fr}.rating strong{font-size:25px}.top-picks{gap:12px}.pick-card{grid-template-columns:82px 1fr;padding:15px;border-radius:22px}.pick-card:first-child{grid-template-columns:1fr}.pick-rank{width:32px;height:32px;border-radius:12px}.pick-card:first-child .product-visual{height:122px}.preview-metrics{grid-template-columns:1fr}.hero-note{font-size:12px}}
   </style>
 </head>
 <body>
@@ -71,6 +75,7 @@
         <a href="#offers">🏷️ Erbjudanden</a>
         <a href="#stores">🏬 Butiker</a>
         <a href="#guide">ℹ️ Guide</a>
+        <a href="#about">Om oss</a>
       </nav>
       <button class="city-pill" id="cityPill">📍 <span id="cityName">Göteborg</span></button>
       <button class="menu-button" id="openMenu">☰ Meny</button>
@@ -88,6 +93,7 @@
         <a href="#stores">🏬 Butiker i staden</a>
         <a href="#categories">🧃 Kategorier</a>
         <a href="#guide">ℹ️ Hur score funkar</a>
+        <a href="#about">✉️ Kontakt / Om oss</a>
       </div>
     </div>
   </div>
@@ -185,6 +191,40 @@
       </div>
     </section>
   </main>
+
+
+  <footer class="site-footer" id="about">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="footer-brand"><span class="footer-badge">M</span><span>MakroKollen</span></div>
+        <div class="footer-links">
+          <a href="#score">MakroKollen-score</a>
+          <a href="#products">Jämför produkter</a>
+          <a href="#offers">Veckans erbjudanden</a>
+          <a href="#stores">Butiker</a>
+          <a href="#guide">Så funkar färgerna</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <span class="footer-pill">Studentbudget + gymmat</span>
+        <h3>Om MakroKollen</h3>
+        <p>MakroKollen är en tidig prototyp som jämför matvaror utifrån pris, protein och kalorier. Målet är att göra det lättare för studenter och träningsintresserade att hitta prisvärda val för deff, bulk och vardagsmat.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Kontakta oss</h3>
+        <div class="contact-card">
+          <p>Tips, samarbete eller fel i datan?</p>
+          <p style="margin-top:10px">E-post:<br><a href="mailto:fiwi1109@icloud.com">fiwi1109@icloud.com</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span>© 2026 MakroKollen. Oberoende MVP-projekt.</span>
+      <span>Näringsvärden och priser bör verifieras innan skarp användning.</span>
+    </div>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
