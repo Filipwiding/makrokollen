@@ -3,469 +3,466 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MakroKollen – erbjudanden efter protein, kcal och pris</title>
-  <meta name="description" content="Hitta matvaror och erbjudanden som ger mest protein och näring för pengarna." />
+  <title>MakroKollen – protein, kcal och prisvärde</title>
+  <meta name="description" content="Jämför matvaror och erbjudanden efter protein per krona, kcal och MakroKollen-score." />
   <style>
     :root{
-      --red:#ef3f4a;
-      --red-dark:#d92f3a;
-      --green:#83d46b;
-      --blue:#6aa7ff;
-      --purple:#8f59ff;
-      --orange:#ff916b;
-      --bg:#f3f5f7;
-      --card:#ffffff;
-      --text:#111315;
-      --muted:#7b8794;
-      --line:#e5e9ef;
-      --shadow:0 12px 30px rgba(20,30,45,.10);
-      --radius:22px;
+      --bg:#f6f3ec;
+      --surface:#fffdf8;
+      --surface-2:#f1eadf;
+      --ink:#18201a;
+      --muted:#667064;
+      --line:#e4dccf;
+      --brand:#143d2b;
+      --brand-2:#1e6b4a;
+      --mint:#c9f2d6;
+      --lime:#7ee081;
+      --yellow:#ffd166;
+      --orange:#ef8f4d;
+      --red:#e45f5f;
+      --blue:#9cc7ff;
+      --shadow:0 18px 45px rgba(38,48,38,.12);
+      --shadow-soft:0 10px 24px rgba(38,48,38,.08);
+      --radius:26px;
+      --radius-sm:16px;
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
-    a{color:inherit;text-decoration:none}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
     button,input,select{font:inherit}
-    .topbar{position:sticky;top:0;z-index:40;background:#fff;box-shadow:0 2px 12px rgba(20,30,45,.07)}
-    .topbar-inner{height:72px;display:flex;align-items:center;gap:18px;width:min(1280px,calc(100% - 28px));margin:auto}
-    .brand{display:flex;align-items:center;gap:8px;font-weight:950;font-size:24px;letter-spacing:-.06em;white-space:nowrap}
-    .brand .red{color:var(--red)}
-    .brand-mark{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--red);color:#fff;font-weight:950;font-size:15px;box-shadow:0 6px 18px rgba(239,63,74,.32)}
-    .search-wrap{flex:1;position:relative;max-width:760px;margin-left:10px}
-    .search-wrap input{width:100%;height:46px;border:1.5px solid #b9c7d8;border-radius:999px;padding:0 48px;color:#17202a;outline:none;background:#fff}
-    .search-wrap input:focus{border-color:var(--red);box-shadow:0 0 0 4px rgba(239,63,74,.10)}
-    .search-icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:#8da1b5;font-size:19px}
-    .location-btn,.login-btn,.menu-btn{height:44px;border:1.5px solid #111;border-radius:999px;background:#fff;padding:0 16px;font-weight:800;display:flex;align-items:center;gap:8px;cursor:pointer;white-space:nowrap}
-    .login-btn{border:0;font-size:28px;padding:0 4px}.menu-btn{border:0;border-radius:12px;font-size:18px}
+    button{cursor:pointer}
+    a{color:inherit;text-decoration:none}
 
-    .hero{background:linear-gradient(90deg,#da333d 0%,#ef414c 48%,#ef414c 100%);min-height:390px;position:relative;overflow:hidden;color:#fff}
-    .hero:before{content:"";position:absolute;left:-90px;bottom:-120px;width:430px;height:430px;border-radius:50%;background:radial-gradient(circle at 30% 35%,#fff7 0 8%,transparent 9%),radial-gradient(circle at 65% 26%,#fff5 0 6%,transparent 7%),rgba(255,255,255,.10);transform:rotate(-18deg)}
-    .hero:after{content:"🥬  🍅  🥖";position:absolute;left:22px;top:75px;font-size:72px;line-height:1.05;filter:drop-shadow(0 10px 12px rgba(0,0,0,.16));transform:rotate(-8deg);opacity:.95}
-    .hero-content{width:min(880px,calc(100% - 32px));margin:auto;text-align:center;padding:58px 0 50px;position:relative;z-index:2}
-    .hero h1{font-size:clamp(38px,5.6vw,68px);line-height:.94;letter-spacing:-.065em;margin:0 0 12px;font-weight:950}
-    .hero p{font-size:clamp(16px,2vw,22px);font-weight:750;line-height:1.25;margin:0 auto 28px;max-width:650px}
-    .hero-search{display:grid;grid-template-columns:1fr;gap:14px;max-width:660px;margin:auto}
-    .hero-search input{height:58px;border:0;border-radius:999px;text-align:center;padding:0 22px;box-shadow:0 10px 28px rgba(0,0,0,.12);font-weight:750;color:#67788c}
-    .hero-actions{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .pill-action{height:52px;border:0;border-radius:999px;font-weight:950;cursor:pointer;background:#fff;color:var(--red);box-shadow:0 10px 25px rgba(0,0,0,.13)}
-    .pill-action.secondary{background:#e9edf1;color:#636d78}.see-more{margin-top:28px;font-weight:850;display:inline-block}
+    .appbar{position:sticky;top:0;z-index:60;background:rgba(255,253,248,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(228,220,207,.8)}
+    .appbar-inner{width:min(1220px,calc(100% - 28px));height:74px;margin:auto;display:flex;align-items:center;gap:16px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:950;letter-spacing:-.065em;font-size:25px;white-space:nowrap}
+    .brand-badge{width:38px;height:38px;border-radius:15px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;display:grid;place-items:center;box-shadow:0 12px 25px rgba(20,61,43,.22);font-size:18px;letter-spacing:-.04em}
+    .brand span:last-child{color:var(--brand-2)}
+    .nav{display:flex;gap:7px;margin-left:auto}
+    .nav a,.menu-button,.city-pill{height:42px;border-radius:999px;padding:0 14px;display:flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fffdf8;font-weight:850;color:#435041;white-space:nowrap}
+    .nav a:hover,.menu-button:hover,.city-pill:hover{border-color:#b6ceb8;background:#f7fff7}
+    .city-pill{max-width:190px;overflow:hidden;text-overflow:ellipsis}
+    .menu-button{display:none}
 
-    main{width:min(1280px,calc(100% - 28px));margin:0 auto 80px}.section{padding:34px 0}.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:18px}.title{display:flex;align-items:center;gap:12px}.title h2{margin:0;font-size:28px;letter-spacing:-.04em}.square-icon{width:44px;height:44px;border-radius:10px;background:#fff;display:grid;place-items:center;box-shadow:var(--shadow);border-top:4px solid var(--green);font-size:23px}.arrow{font-size:24px}.carousel-controls{display:flex;gap:12px}.round{width:48px;height:48px;border-radius:50%;border:0;background:#fff;box-shadow:var(--shadow);font-size:26px;font-weight:900;cursor:pointer}
-    .cards-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}.offer-card,.store-card,.category-card,.product-card,.info-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}.offer-card{min-height:365px;border-top:5px solid var(--green);padding:18px;display:flex;flex-direction:column;text-align:center;position:relative}.offer-img{height:106px;border-radius:16px;background:linear-gradient(135deg,#eef6ff,#fff);display:grid;place-items:center;font-size:52px;margin-bottom:12px}.offer-card h3{font-size:16px;line-height:1.1;margin:0 0 4px;min-height:38px}.offer-card .brandline{font-size:13px;color:#5c6671;min-height:32px}.price{font-size:25px;color:var(--red);font-weight:950;margin:18px 0 2px}.storeline{color:#9aa9b9;font-weight:900;font-size:13px}.macroline{font-size:12px;color:#54606c;background:#f4f6f8;border-radius:999px;padding:7px 9px;margin-top:auto}.card-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:14px}.dots{font-size:24px;font-weight:950}.plus{border:0;background:var(--red);color:#fff;border-radius:999px;width:84px;height:36px;font-size:24px;line-height:0;cursor:pointer}
+    .mobile-menu{position:fixed;inset:0;z-index:100;background:rgba(24,32,26,.34);display:none;padding:14px}.mobile-menu.open{display:block}.menu-panel{margin-left:auto;width:min(360px,100%);height:100%;background:var(--surface);border-radius:28px;padding:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px}.menu-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}.menu-head strong{font-size:21px;letter-spacing:-.04em}.close-btn{width:44px;height:44px;border:0;border-radius:16px;background:var(--surface-2);font-size:24px}.menu-links{display:grid;gap:10px}.menu-links a{padding:17px 16px;border-radius:18px;background:#fff;border:1px solid var(--line);font-weight:900;display:flex;align-items:center;gap:10px}.menu-links a:hover{background:#f7fff7;border-color:#b6ceb8}
 
-    .store-card{min-height:170px;display:grid;place-items:center;padding:14px 10px;border-top:5px solid var(--blue);cursor:pointer;transition:.15s transform}.store-card:hover,.category-card:hover,.offer-card:hover,.product-card:hover{transform:translateY(-3px)}.store-logo{font-size:30px;font-weight:950;letter-spacing:-.05em}.store-logo.red{color:var(--red)}.store-logo.green{color:#13a858}.store-logo.blue{color:#176fff}.store-logo.yellow{color:#f2c300;text-shadow:1px 1px #174ea6}.store-logo.black{color:#111}.store-small{color:#8a98a8;font-weight:850;font-size:13px;margin-top:5px;text-align:center}.store-name{font-size:14px;font-weight:950;line-height:1.15;margin-top:8px}.store-address{font-size:12px;color:#7d8996;margin-top:5px;line-height:1.2}.category-card{height:170px;display:flex;flex-direction:column}.cat-color{height:104px;display:grid;place-items:center;font-size:52px}.cat-name{flex:1;display:grid;place-items:center;text-align:center;font-weight:950;font-size:14px;padding:8px}.cat-mejeri{background:#aee9e4}.cat-kolonial{background:#efc58d}.cat-kott{background:#ffcfd6}.cat-fisk{background:#df79b0}.cat-protein{background:#ff8d63}.cat-veg{background:#c79284}.cat-eko{background:#8cb57c}
+    .hero{position:relative;overflow:hidden;background:radial-gradient(circle at 12% 18%,rgba(126,224,129,.36),transparent 27%),radial-gradient(circle at 88% 10%,rgba(255,209,102,.46),transparent 23%),linear-gradient(135deg,#fffaf1 0%,#eef8e9 50%,#f8efe0 100%);border-bottom:1px solid var(--line)}
+    .hero-inner{width:min(1220px,calc(100% - 28px));margin:auto;padding:54px 0 28px;display:grid;grid-template-columns:1.08fr .92fr;gap:34px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;background:#eaf8e7;border:1px solid #cbe5c8;color:var(--brand);font-weight:950;font-size:13px;text-transform:uppercase;letter-spacing:.04em}.hero h1{font-size:clamp(42px,6vw,76px);line-height:.93;letter-spacing:-.075em;margin:18px 0 16px}.hero h1 em{font-style:normal;color:var(--brand-2)}.hero p{margin:0;color:#4c584c;font-size:clamp(17px,2vw,22px);line-height:1.35;font-weight:650;max-width:690px}.hero-actions{margin-top:26px;display:grid;grid-template-columns:1fr auto auto;gap:10px;max-width:760px}.hero-search{height:56px;border:1.5px solid #b9cdb9;background:#fff;border-radius:999px;padding:0 19px;outline:none;box-shadow:0 10px 24px rgba(35,54,35,.06)}.hero-search:focus{border-color:var(--brand-2);box-shadow:0 0 0 5px rgba(30,107,74,.10)}.primary-btn,.secondary-btn{height:56px;border:0;border-radius:999px;padding:0 19px;font-weight:950;white-space:nowrap}.primary-btn{background:var(--brand);color:#fff;box-shadow:0 14px 26px rgba(20,61,43,.22)}.secondary-btn{background:#fff;color:var(--brand);border:1.5px solid #b9cdb9}.hero-note{margin-top:14px;color:#697569;font-size:13px;font-weight:750}.hero-card{background:rgba(255,253,248,.74);border:1px solid rgba(228,220,207,.9);box-shadow:var(--shadow);border-radius:34px;padding:18px}.hero-preview{background:#fff;border-radius:26px;padding:18px;border:1px solid var(--line)}.preview-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}.preview-top strong{font-size:18px;letter-spacing:-.04em}.mini-score{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:999px;background:#e8f7e6;color:#166238;font-weight:950}.preview-product{display:grid;grid-template-columns:74px 1fr;gap:14px;align-items:center}.preview-img{height:74px;border-radius:22px;background:linear-gradient(135deg,#e7f7e6,#fff2cf);display:grid;place-items:center;font-size:36px}.preview-product h3{margin:0 0 5px;font-size:17px}.preview-product p{margin:0;font-size:13px;color:var(--muted);font-weight:700}.preview-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:16px}.preview-metric{background:var(--surface-2);border-radius:18px;padding:11px;text-align:center}.preview-metric span{display:block;color:var(--muted);font-size:11px;font-weight:900;text-transform:uppercase}.preview-metric strong{display:block;margin-top:4px;font-size:19px;color:var(--brand);letter-spacing:-.04em}
 
-    .dashboard{display:grid;grid-template-columns:1fr;gap:18px}.filters{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}.filters-grid{display:grid;grid-template-columns:1.3fr repeat(4,1fr);gap:12px}.field label{display:block;color:#6e7d8d;font-weight:900;font-size:12px;margin-bottom:6px;text-transform:uppercase;letter-spacing:.03em}.field input,.field select{width:100%;height:44px;border:1px solid var(--line);border-radius:14px;padding:0 12px;background:#f7f9fb;color:#12181f;outline:none}.field input:focus,.field select:focus{border-color:var(--red);box-shadow:0 0 0 4px rgba(239,63,74,.10)}
-    .product-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.product-card{padding:20px}.product-top{display:flex;justify-content:space-between;gap:14px}.product-card h3{margin:0 0 5px;font-size:19px;line-height:1.1}.tag{display:inline-flex;align-items:center;border-radius:999px;background:#f1f4f7;color:#657487;padding:6px 10px;font-size:12px;font-weight:900;white-space:nowrap}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}.metric{background:#f6f8fa;border:1px solid var(--line);border-radius:15px;padding:12px}.metric span{display:block;color:#748294;font-size:11px;font-weight:950;text-transform:uppercase}.metric strong{display:block;font-size:20px;color:var(--red);letter-spacing:-.04em;margin-top:5px}.product-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:14px;color:#607080;font-size:13px;font-weight:800}.source-link{color:var(--red);font-weight:950}.empty{background:#fff;border-radius:var(--radius);padding:28px;text-align:center;color:#6d7783;box-shadow:var(--shadow)}
-    .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-weight:900;color:#607080;cursor:pointer}.chip.active{background:var(--red);color:#fff;border-color:var(--red)}
-    .article-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}.article{height:290px;border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow)}.article-img{height:210px;display:grid;place-items:center;color:#fff;font-size:44px;font-weight:950;text-align:center;padding:20px;background:linear-gradient(135deg,#315a32,#9cd272)}.article:nth-child(2) .article-img{background:linear-gradient(135deg,#1e1e30,#ef3f4a)}.article-title{height:80px;display:flex;align-items:center;padding:0 28px;font-size:22px;font-weight:950;letter-spacing:-.04em}
-    .bottom-space{height:40px}.notice{background:#fff;border-left:6px solid var(--red);padding:16px 18px;border-radius:16px;box-shadow:var(--shadow);color:#5c6670;line-height:1.45;margin-bottom:22px}.notice strong{color:#121820}.hidden{display:none!important}
+    main{width:min(1220px,calc(100% - 28px));margin:0 auto 80px}.section{padding:34px 0}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:18px}.section-title small{display:block;color:var(--brand-2);font-weight:950;text-transform:uppercase;letter-spacing:.08em;font-size:12px;margin-bottom:5px}.section-title h2{margin:0;font-size:clamp(26px,3vw,40px);letter-spacing:-.055em;line-height:1}.section-sub{color:var(--muted);font-weight:700;max-width:520px}.top-picks{display:grid;grid-template-columns:1.1fr .95fr .95fr;gap:16px}.pick-card{position:relative;overflow:hidden;background:var(--surface);border-radius:var(--radius);padding:20px;border:1px solid var(--line);box-shadow:var(--shadow-soft);display:grid;grid-template-columns:108px 1fr;gap:16px;min-height:190px}.pick-card:first-child{grid-row:span 2;grid-template-columns:1fr;min-height:396px;background:linear-gradient(135deg,#fffdf8 0%,#ecf9e9 100%)}.pick-rank{position:absolute;top:14px;left:14px;background:var(--brand);color:#fff;width:38px;height:38px;border-radius:14px;display:grid;place-items:center;font-weight:950}.product-visual{background:linear-gradient(135deg,#f1f6ea,#fff2d0);border:1px solid #eee1c7;border-radius:22px;display:grid;place-items:center;font-size:46px;overflow:hidden;min-height:106px}.pick-card:first-child .product-visual{height:150px;font-size:70px}.product-visual img{width:100%;height:100%;object-fit:cover}.pick-info{min-width:0}.pick-title{margin:0 0 5px;font-size:19px;line-height:1.08;letter-spacing:-.035em}.pick-card:first-child .pick-title{font-size:25px}.meta{color:var(--muted);font-size:13px;font-weight:800}.score-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.score-pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:8px 10px;font-size:12px;font-weight:950;color:#112014}.score-good{background:#d9f8d9}.score-mid{background:#fff0bd}.score-low{background:#ffd9d9}.price-line{display:flex;align-items:end;gap:7px;margin-top:14px}.price-line strong{font-size:26px;color:var(--brand);letter-spacing:-.06em}.price-line span{font-size:13px;color:var(--muted);font-weight:900;margin-bottom:5px}.score-bar{margin-top:12px;height:10px;border-radius:999px;background:#efe7da;overflow:hidden}.score-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--red),var(--yellow),var(--lime));width:0%}
 
-    .drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.28);z-index:60;display:none}.drawer{position:fixed;right:0;top:0;height:100vh;width:min(360px,94vw);background:#fff;z-index:70;box-shadow:-20px 0 50px rgba(0,0,0,.18);transform:translateX(105%);transition:.2s transform;padding:24px;overflow:auto}.drawer.open{transform:translateX(0)}.drawer-backdrop.open{display:block}.drawer-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.close{border:0;background:transparent;font-size:34px;font-weight:950;cursor:pointer}.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.menu-tile{height:118px;border:1px solid var(--line);border-radius:18px;display:grid;place-items:center;text-align:center;font-weight:950;background:#fff;box-shadow:0 7px 18px rgba(20,30,45,.08);border-top:4px solid var(--red)}.menu-tile.big{grid-column:1/-1;height:126px;border:2px solid #111}.menu-tile span{display:block;font-size:28px;margin-bottom:8px}
+    .control-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-soft);padding:17px;margin-bottom:18px}.filters{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:12px}.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.07em;font-weight:950;color:var(--muted);margin-bottom:6px}.field input,.field select{width:100%;height:48px;border:1px solid var(--line);background:#fff;border-radius:15px;padding:0 12px;outline:none;color:var(--ink);font-weight:750}.field input:focus,.field select:focus{border-color:#98c69b;box-shadow:0 0 0 4px rgba(126,224,129,.16)}.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-weight:900;color:#4e5b4d}.chip.active{background:var(--brand);color:#fff;border-color:var(--brand)}
 
-    @media (max-width:1000px){.cards-row{grid-template-columns:repeat(3,minmax(0,1fr))}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.filters-grid{grid-template-columns:1fr 1fr}.hero:after{opacity:.20}.topbar-inner{gap:8px}.location-btn span,.menu-btn span{display:none}.search-wrap{margin-left:0}}
-    @media (max-width:680px){.topbar-inner{height:64px;width:calc(100% - 16px)}.brand{font-size:20px}.brand-mark{width:24px;height:24px}.search-wrap{display:none}.hero{min-height:440px}.hero-content{padding:42px 0}.hero-actions{grid-template-columns:1fr}.cards-row,.product-grid,.article-grid{grid-template-columns:1fr}.filters-grid{grid-template-columns:1fr}.section-head{align-items:flex-start}.carousel-controls{display:none}.offer-card{min-height:330px}.article{height:250px}.article-img{height:175px}.article-title{height:75px;font-size:18px}.hero h1{font-size:44px}.hero p{font-size:16px}.section{padding:26px 0}.title h2{font-size:24px}.location-btn{font-size:13px;padding:0 12px}.login-btn{font-size:24px}}
+    .product-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.product-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-soft);overflow:hidden;display:flex;flex-direction:column}.product-card-top{padding:15px;display:grid;grid-template-columns:92px 1fr;gap:14px;align-items:center}.product-card h3{margin:0 0 5px;font-size:18px;line-height:1.1;letter-spacing:-.035em}.product-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.tag{border-radius:999px;padding:6px 9px;background:var(--surface-2);font-size:11px;color:#566354;font-weight:900}.rating-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:0 15px 12px}.rating{border-radius:18px;padding:12px;border:1px solid rgba(0,0,0,.04)}.rating small{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:950;color:#4a5649}.rating strong{display:block;font-size:28px;letter-spacing:-.07em;margin-top:2px}.rating.good{background:#dcf8dd}.rating.mid{background:#fff0bf}.rating.low{background:#ffdede}.card-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}.card-metric{background:#fffdf8;padding:13px 11px}.card-metric span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:950;color:var(--muted)}.card-metric strong{display:block;color:var(--brand);font-size:18px;letter-spacing:-.04em;margin-top:4px}.product-foot{margin-top:auto;padding:13px 15px;display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--muted);font-size:12px;font-weight:850;border-top:1px solid var(--line)}.link-btn{border:0;background:var(--brand);color:#fff;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:950}.link-btn.disabled{background:#e6dfd3;color:#81776b}
+
+    .store-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.store-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:var(--shadow-soft);display:grid;grid-template-columns:52px 1fr;gap:13px;align-items:center;text-align:left}.store-card:hover{border-color:#98c69b;background:#fbfff8}.store-logo{width:52px;height:52px;border-radius:18px;display:grid;place-items:center;background:var(--surface-2);font-weight:950;font-size:15px;letter-spacing:-.05em}.store-logo.willys{background:#ffe2dd;color:#a83224}.store-logo.coop{background:#dff7df;color:#087435}.store-logo.lidl{background:#fff0aa;color:#063f8d}.store-logo.ica{background:#ffe3e3;color:#d83232}.store-logo.hemköp,.store-logo.hemkop{background:#e8e2d8;color:#111}.store-name{font-weight:950;line-height:1.12}.store-meta{font-size:12px;color:var(--muted);font-weight:800;margin-top:4px}.category-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px}.category-card{border:1px solid var(--line);border-radius:22px;background:var(--surface);box-shadow:var(--shadow-soft);padding:16px;text-align:left;min-height:145px;display:flex;flex-direction:column;justify-content:space-between}.cat-icon{font-size:42px}.category-card strong{font-size:16px;letter-spacing:-.03em}.category-card span{font-size:12px;color:var(--muted);font-weight:800}.guide{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.guide-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow-soft)}.guide-card strong{display:block;font-size:18px;letter-spacing:-.035em}.guide-card p{margin:8px 0 0;color:var(--muted);font-weight:700;line-height:1.45}.empty{background:#fffdf8;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-soft);padding:26px;text-align:center;color:var(--muted);font-weight:800}.status{padding:11px 13px;background:#fff8df;border:1px solid #f0d782;border-radius:16px;color:#66581c;font-weight:850;margin-top:14px;font-size:13px}.hidden{display:none!important}
+
+    @media(max-width:980px){.nav{display:none}.menu-button{display:flex}.hero-inner{grid-template-columns:1fr;padding-top:34px}.hero-card{display:none}.hero-actions{grid-template-columns:1fr}.top-picks{grid-template-columns:1fr}.pick-card:first-child{grid-row:auto;min-height:auto}.pick-card{grid-template-columns:94px 1fr}.filters{grid-template-columns:1fr 1fr}.product-grid{grid-template-columns:1fr 1fr}.store-grid{grid-template-columns:1fr 1fr}.category-grid{grid-template-columns:1fr 1fr 1fr}.guide{grid-template-columns:1fr}.appbar-inner{height:66px}.brand{font-size:22px}.city-pill{margin-left:auto}.hero h1{font-size:48px}}
+    @media(max-width:640px){.appbar-inner{gap:9px}.brand span.word{display:none}.city-pill{max-width:132px;padding:0 11px}.hero-inner{width:min(100% - 22px,1220px)}.hero h1{font-size:42px}.hero p{font-size:16px}.primary-btn,.secondary-btn,.hero-search{height:52px}.section{padding:26px 0}.section-head{align-items:flex-start;flex-direction:column}.product-grid,.store-grid{grid-template-columns:1fr}.category-grid{grid-template-columns:1fr 1fr}.filters{grid-template-columns:1fr}.product-card-top{grid-template-columns:82px 1fr}.rating strong{font-size:25px}.top-picks{gap:12px}.pick-card{grid-template-columns:82px 1fr;padding:15px;border-radius:22px}.pick-card:first-child{grid-template-columns:1fr}.pick-rank{width:32px;height:32px;border-radius:12px}.pick-card:first-child .product-visual{height:122px}.preview-metrics{grid-template-columns:1fr}.hero-note{font-size:12px}}
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="#top" aria-label="MakroKollen startsida"><span class="red">makro</span>kollen <span class="brand-mark">M</span></a>
-      <div class="search-wrap"><span class="search-icon">⌕</span><input id="topSearch" type="search" placeholder="Sök produkter, erbjudanden eller jämför protein per krona" /></div>
-      <button class="location-btn" id="locationButton" title="Byt stad">⌖ <span id="locationText">Göteborg</span></button>
-      <button class="login-btn" title="Logga in senare">↪</button>
-      <button class="menu-btn" id="openMenu">☰ <span>Meny</span></button>
+  <header class="appbar">
+    <div class="appbar-inner">
+      <a class="brand" href="#top" aria-label="MakroKollen"><span class="brand-badge">M</span><span class="word">Makro</span><span class="word">Kollen</span></a>
+      <nav class="nav" aria-label="Huvudmeny">
+        <a href="#score">🏆 Score</a>
+        <a href="#products">⚖️ Jämför</a>
+        <a href="#offers">🏷️ Erbjudanden</a>
+        <a href="#stores">🏬 Butiker</a>
+        <a href="#guide">ℹ️ Guide</a>
+      </nav>
+      <button class="city-pill" id="cityPill">📍 <span id="cityName">Göteborg</span></button>
+      <button class="menu-button" id="openMenu">☰ Meny</button>
     </div>
   </header>
 
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="menu-panel">
+      <div class="menu-head"><strong>Meny</strong><button class="close-btn" id="closeMenu">×</button></div>
+      <div class="menu-links">
+        <a href="#top">🏠 Start</a>
+        <a href="#score">🏆 Bästa scores</a>
+        <a href="#products">⚖️ Jämför produkter</a>
+        <a href="#offers">🏷️ Erbjudanden</a>
+        <a href="#stores">🏬 Butiker i staden</a>
+        <a href="#categories">🧃 Kategorier</a>
+        <a href="#guide">ℹ️ Hur score funkar</a>
+      </div>
+    </div>
+  </div>
+
   <section class="hero" id="top">
-    <div class="hero-content">
-      <h1>Hitta mest protein där du bor</h1>
-      <p>Jämför matvaror, kampanjer och butiker efter protein per krona, kcal och egna MakroKollen-score.</p>
-      <div class="hero-search">
-        <input id="heroLocation" placeholder="Skriv stad, t.ex. Göteborg" />
+    <div class="hero-inner">
+      <div>
+        <span class="eyebrow">💪 Studentbudget + gymmat</span>
+        <h1>Hitta maten med bäst <em>makro-värde</em>.</h1>
+        <p>MakroKollen rankar produkter efter protein per krona, kalorier och egna deff- och bulk-score från 1–10.</p>
         <div class="hero-actions">
-          <button class="pill-action" id="useLocation">⌖ Min plats</button>
-          <button class="pill-action secondary" id="setLocation">Sök ort i fältet</button>
+          <input class="hero-search" id="cityInput" placeholder="Skriv stad, t.ex. Göteborg" />
+          <button class="primary-btn" id="setCityBtn">Byt stad</button>
+          <button class="secondary-btn" id="geoBtn">📍 Min plats</button>
+        </div>
+        <div class="hero-note" id="cityStatus">Visar Göteborg. Butiker och erbjudanden filtreras efter vald stad när data finns.</div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-preview">
+          <div class="preview-top"><strong>Så visas en bra vara</strong><span class="mini-score">9.1 / 10</span></div>
+          <div class="preview-product">
+            <div class="preview-img">🥛</div>
+            <div><h3>Naturell kvarg 500 g</h3><p>Högt protein, låg kcal, bra deff-score.</p></div>
+          </div>
+          <div class="preview-metrics">
+            <div class="preview-metric"><span>Protein/kr</span><strong>2.4g</strong></div>
+            <div class="preview-metric"><span>Deff</span><strong>9.1</strong></div>
+            <div class="preview-metric"><span>Bulk</span><strong>4.2</strong></div>
+          </div>
+          <div class="score-bar"><div class="score-fill" style="width:91%"></div></div>
         </div>
       </div>
-      <a class="see-more" href="#offers">Se bästa erbjudanden ↓</a>
     </div>
   </section>
 
   <main>
-    <section class="section" id="offers">
+    <section class="section" id="score">
       <div class="section-head">
-        <div class="title"><div class="square-icon">🏷️</div><h2>Erbjudanden nära dig <span class="arrow">›</span></h2></div>
-        <div class="carousel-controls"><button class="round">‹</button><button class="round">›</button></div>
+        <div class="section-title"><small>MakroKollen-score</small><h2>Bästa valen just nu</h2></div>
+        <div class="section-sub">Score ligger högt upp så man direkt hittar det som är mest prisvärt för deff, bulk eller protein per krona.</div>
       </div>
-      <div class="notice"><strong>MakroKollen-vinkel:</strong> korten nedan räknar inte bara pris, utan även protein/kr, protein/100 kcal och deff-score. Erbjudanden kommer från Supabase-tabellen <strong>offers</strong> när den är ifylld.</div>
-      <div class="cards-row" id="offersGrid"></div>
+      <div class="top-picks" id="topPicks"></div>
+      <div class="status hidden" id="loadStatus"></div>
     </section>
 
-    <section class="section" id="stores">
+    <section class="section" id="products">
       <div class="section-head">
-        <div class="title"><div class="square-icon" style="border-top-color:var(--blue)">🏬</div><h2>Butiker <span class="arrow">›</span></h2></div>
-        <div class="carousel-controls"><button class="round">‹</button><button class="round">›</button></div>
+        <div class="section-title"><small>Jämför</small><h2>Produkter</h2></div>
+        <div class="section-sub">Färgkodning: grönt = riktigt bra, gult = okej, rött = sämre enligt vald score.</div>
       </div>
-      <div class="cards-row" id="storesGrid"></div>
-    </section>
-
-    <section class="section" id="categories">
-      <div class="section-head">
-        <div class="title"><div class="square-icon" style="border-top-color:var(--orange)">▤</div><h2>Kategorier <span class="arrow">›</span></h2></div>
-        <div class="carousel-controls"><button class="round">‹</button><button class="round">›</button></div>
-      </div>
-      <div class="cards-row" id="categoriesGrid"></div>
-    </section>
-
-    <section class="section" id="compare">
-      <div class="section-head">
-        <div class="title"><div class="square-icon" style="border-top-color:var(--purple)">⚖️</div><h2>Jämför makros <span class="arrow">›</span></h2></div>
-      </div>
-      <div class="filters">
-        <div class="filters-grid">
+      <div class="control-card">
+        <div class="filters">
           <div class="field"><label>Sök</label><input id="searchInput" type="search" placeholder="Sök kvarg, kyckling, tonfisk..." /></div>
-          <div class="field"><label>Butik</label><select id="storeFilter"><option value="all">Alla butiker</option></select></div>
-          <div class="field"><label>Varugrupp</label><select id="mainFilter"><option value="all">Alla varugrupper</option></select></div>
-          <div class="field"><label>Kategori</label><select id="subFilter"><option value="all">Alla kategorier</option></select></div>
-          <div class="field"><label>Sortera</label><select id="sortSelect"><option value="protein_per_kr">Protein per krona</option><option value="deff_score">Bäst för deff</option><option value="protein_per_100kcal">Protein per 100 kcal</option><option value="kcal_per_kr">Kcal per krona</option><option value="price">Lägst pris</option></select></div>
+          <div class="field"><label>Butik</label><select id="storeFilter"><option value="all">Alla</option></select></div>
+          <div class="field"><label>Varugrupp</label><select id="mainFilter"><option value="all">Alla</option></select></div>
+          <div class="field"><label>Kategori</label><select id="subFilter"><option value="all">Alla</option></select></div>
+          <div class="field"><label>Sortera</label><select id="sortSelect"><option value="deff10">Bäst deff-score</option><option value="bulk10">Bäst bulk-score</option><option value="protein_per_kr">Protein per krona</option><option value="protein_per_100kcal">Protein per 100 kcal</option><option value="priceAsc">Lägst pris</option></select></div>
         </div>
         <div class="chips" id="quickChips"></div>
       </div>
       <div class="product-grid" id="productsGrid"></div>
     </section>
 
-    <section class="section" id="aktuellt">
+    <section class="section" id="offers">
       <div class="section-head">
-        <div class="title"><div class="square-icon" style="border-top-color:var(--purple)">📰</div><h2>Aktuellt <span class="arrow">›</span></h2></div>
+        <div class="section-title"><small>Veckans fynd</small><h2>Erbjudanden</h2></div>
+        <div class="section-sub">När offers-tabellen fylls på visas kampanjer här med samma 1–10-score.</div>
       </div>
-      <div class="article-grid">
-        <article class="article"><div class="article-img">STUDENT<br>MATKASSE<br>2026</div><div class="article-title">Bygg en billig deff-vecka med mest protein per krona</div></article>
-        <article class="article"><div class="article-img">KVARG<br>vs<br>KESO</div><div class="article-title">Så jämför MakroKollen livsmedel efter protein och kcal</div></article>
+      <div class="product-grid" id="offersGrid"></div>
+    </section>
+
+    <section class="section" id="stores">
+      <div class="section-head">
+        <div class="section-title"><small>Vald stad</small><h2>Butiker i <span id="storesCityTitle">Göteborg</span></h2></div>
+        <div class="section-sub">Tryck på en butikskedja för att filtrera produkterna.</div>
+      </div>
+      <div class="store-grid" id="storesGrid"></div>
+    </section>
+
+    <section class="section" id="categories">
+      <div class="section-head">
+        <div class="section-title"><small>Snabbfilter</small><h2>Kategorier</h2></div>
+      </div>
+      <div class="category-grid" id="categoryGrid"></div>
+    </section>
+
+    <section class="section" id="guide">
+      <div class="section-head">
+        <div class="section-title"><small>Guide</small><h2>Hur färgerna funkar</h2></div>
+      </div>
+      <div class="guide">
+        <div class="guide-card"><strong>🟢 8–10</strong><p>Riktigt starkt val. Bra kombination av pris, protein och syfte.</p></div>
+        <div class="guide-card"><strong>🟡 5–7.9</strong><p>Okej till bra. Kan vara värt beroende på smak, butik och mål.</p></div>
+        <div class="guide-card"><strong>🔴 1–4.9</strong><p>Sämre makro-värde jämfört med andra produkter i databasen.</p></div>
       </div>
     </section>
-    <div class="bottom-space"></div>
   </main>
 
-  <div class="drawer-backdrop" id="drawerBackdrop"></div>
-  <aside class="drawer" id="drawer">
-    <div class="drawer-head"><button class="location-btn" id="drawerLocationButton">⌖ <span id="drawerLocationText">Göteborg</span></button><button class="close" id="closeMenu">×</button></div>
-    <div class="menu-grid">
-      <a class="menu-tile big" href="#top"><div><span>⌂</span>Hem</div></a>
-      <a class="menu-tile" href="#offers"><div><span>🏷️</span>Erbjudanden</div></a>
-      <a class="menu-tile" href="#stores"><div><span>🏬</span>Butiker</div></a>
-      <a class="menu-tile" href="#compare"><div><span>⚖️</span>Jämför priser</div></a>
-      <a class="menu-tile" href="#categories"><div><span>▤</span>Kategorier</div></a>
-      <a class="menu-tile" href="#aktuellt"><div><span>📰</span>Aktuellt</div></a>
-      <a class="menu-tile" href="#"><div><span>🔒</span>Bevakningar</div></a>
-      <a class="menu-tile big" href="#"><div><span>☺</span>Logga in senare</div></a>
-    </div>
-  </aside>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = "https://xbchahtjygkwghlidlui.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_8dUrotr9SWeoIYHOQNNzOw_IBw1jIsE";
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-<script>
-const SUPABASE_URL = "https://xbchahtjygkwghlidlui.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_8dUrotr9SWeoIYHOQNNzOw_IBw1jIsE";
-const headers = { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` };
+    const fallbackCities = [{id:null,name:"Göteborg",slug:"goteborg",lat:57.7089,lng:11.9746}];
+    const fallbackProducts = [
+      {name:"Naturell Kvarg 500g",brand:"Lindahls",store:"Willys",main_category:"Mejeri",sub_category:"Kvarg",price:22.9,package_size:500,package_unit:"g",protein_per_100:11,kcal_per_100:60,total_protein:55,protein_per_kr:2.4,protein_per_100kcal:18.3,deff_score:44,kcal_per_kr:13.1,verified:true},
+      {name:"Havregryn 1kg",brand:"Garant",store:"Willys",main_category:"Kolonial",sub_category:"Havregryn",price:11.3,package_size:1000,package_unit:"g",protein_per_100:13,kcal_per_100:370,total_protein:130,protein_per_kr:11.5,protein_per_100kcal:3.5,deff_score:40.1,kcal_per_kr:327.4,verified:false},
+      {name:"Tonfisk i vatten",brand:"Abba",store:"Willys",main_category:"Kött, fisk & fågel",sub_category:"Tonfisk",price:18.9,package_size:150,package_unit:"g",protein_per_100:24,kcal_per_100:110,total_protein:36,protein_per_kr:1.9,protein_per_100kcal:21.8,deff_score:41.5,kcal_per_kr:8.7,verified:false}
+    ];
+    const fallbackStores = [
+      {chain:"Willys", store_name:"Willys Göteborg", city:"Göteborg", address:"Göteborg"},
+      {chain:"Coop", store_name:"Coop Göteborg", city:"Göteborg", address:"Göteborg"},
+      {chain:"Lidl", store_name:"Lidl Göteborg", city:"Göteborg", address:"Göteborg"},
+      {chain:"ICA", store_name:"ICA Göteborg", city:"Göteborg", address:"Göteborg"},
+      {chain:"Hemköp", store_name:"Hemköp Göteborg", city:"Göteborg", address:"Göteborg"}
+    ];
+    const categoryList = [
+      {name:"Mejeri", icon:"🥛", hint:"Kvarg, keso, yoghurt"},
+      {name:"Kött, fisk & fågel", icon:"🍗", hint:"Kyckling, färs, tonfisk"},
+      {name:"Kolonial", icon:"🥣", hint:"Havre, ris, pasta"},
+      {name:"Proteinprodukter", icon:"💪", hint:"Pudding, dryck"},
+      {name:"Vegetariskt", icon:"🫘", hint:"Bönor, linser"},
+      {name:"Fryst", icon:"🧊", hint:"Fryst protein och grönt"}
+    ];
 
-const chainStyles = {
-  "Willys": "red",
-  "Coop": "green",
-  "Lidl": "yellow",
-  "ICA": "red",
-  "Hemköp": "black",
-  "City Gross": "green",
-  "Rusta": "yellow",
-  "Dollarstore": "red"
-};
-const fallbackStores = [
-  {chain:"Willys", store_name:"Willys Göteborg", address:"Göteborg", city:"Göteborg"},
-  {chain:"Coop", store_name:"Coop Göteborg", address:"Göteborg", city:"Göteborg"},
-  {chain:"Lidl", store_name:"Lidl Göteborg", address:"Göteborg", city:"Göteborg"},
-  {chain:"ICA", store_name:"ICA Göteborg", address:"Göteborg", city:"Göteborg"},
-  {chain:"Hemköp", store_name:"Hemköp Göteborg", address:"Göteborg", city:"Göteborg"}
-];
-const categories = [
-  {name:"Mejeri", icon:"🥛", color:"cat-mejeri"},
-  {name:"Kolonial", icon:"🥖", color:"cat-kolonial"},
-  {name:"Kött, fisk & fågel", icon:"🍗", color:"cat-kott"},
-  {name:"Fisk", icon:"🐟", color:"cat-fisk"},
-  {name:"Proteinprodukter", icon:"💪", color:"cat-protein"},
-  {name:"Vegetariskt", icon:"🫘", color:"cat-veg"},
-  {name:"Ekologiskt", icon:"🌿", color:"cat-eko"}
-];
-const fallbackCities = [{id:null,name:"Göteborg",slug:"goteborg",lat:57.7089,lng:11.9746}];
-const fallbackProducts = [
-  {name:"Havregryn 1kg",brand:"Garant",store:"Willys",main_category:"Kolonial",sub_category:"Havregryn",price:11.3,package_size:1000,package_unit:"g",protein_per_100:13,kcal_per_100:370,total_protein:130,protein_per_kr:11.5,protein_per_100kcal:3.5,deff_score:40.1,kcal_per_kr:327.4,verified:false},
-  {name:"Naturell Kvarg 500g",brand:"Lindahls",store:"Willys",main_category:"Mejeri",sub_category:"Kvarg",price:22.9,package_size:500,package_unit:"g",protein_per_100:11,kcal_per_100:60,total_protein:55,protein_per_kr:2.4,protein_per_100kcal:18.3,deff_score:44.0,kcal_per_kr:13.1,verified:true},
-  {name:"Tonfisk i vatten",brand:"Abba",store:"Willys",main_category:"Kött, fisk & fågel",sub_category:"Tonfisk",price:18.9,package_size:150,package_unit:"g",protein_per_100:24,kcal_per_100:110,total_protein:36,protein_per_kr:1.9,protein_per_100kcal:21.8,deff_score:41.5,kcal_per_kr:8.7,verified:false}
-];
+    let products = [];
+    let offers = [];
+    let cities = [];
+    let stores = [];
+    let selectedCity = null;
+    let activeCategory = "all";
 
-let products = [];
-let offers = [];
-let cities = [];
-let stores = [];
-let selectedCity = null;
-let activeQuick = "all";
+    const $ = id => document.getElementById(id);
+    const n = v => Number(v ?? 0);
+    const fmt = (v,d=1) => Number.isFinite(Number(v)) ? Number(v).toLocaleString("sv-SE",{maximumFractionDigits:d}) : "–";
+    const money = v => Number.isFinite(Number(v)) ? `${fmt(v,2)} kr` : "–";
+    const clean = s => (s || "").toString().trim();
+    const norm = s => clean(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/å/g,"a").replace(/ä/g,"a").replace(/ö/g,"o");
 
-function fmt(n, digits=1){
-  if(n === null || n === undefined || Number.isNaN(Number(n))) return "–";
-  return Number(n).toLocaleString("sv-SE", {maximumFractionDigits: digits});
-}
-function money(n){ return `${fmt(n,2)} kr`; }
-function text(v){ return (v || "").toString(); }
-function norm(s){ return text(s).trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/å/g,"a").replace(/ä/g,"a").replace(/ö/g,"o"); }
-function productIcon(p){
-  const s = `${p.name} ${p.main_category} ${p.sub_category}`.toLowerCase();
-  if(s.includes("kvarg") || s.includes("keso") || s.includes("mejeri") || s.includes("yoghurt")) return "🥛";
-  if(s.includes("kyck") || s.includes("kött") || s.includes("fågel")) return "🍗";
-  if(s.includes("tonfisk") || s.includes("fisk") || s.includes("lax")) return "🐟";
-  if(s.includes("ägg")) return "🥚";
-  if(s.includes("havre") || s.includes("pasta") || s.includes("ris")) return "🥣";
-  if(s.includes("bön") || s.includes("lins")) return "🫘";
-  return "🛒";
-}
-function chainClass(chain){ return chainStyles[text(chain)] || "black"; }
-function cityDisplayName(){ return selectedCity?.name || "Göteborg"; }
-function updateLocationUI(){
-  const name = cityDisplayName();
-  document.getElementById("locationText").textContent = name;
-  const drawerLoc = document.getElementById("drawerLocationText");
-  if(drawerLoc) drawerLoc.textContent = name;
-  const hero = document.getElementById("heroLocation");
-  if(hero && !hero.value) hero.placeholder = `Skriv stad, t.ex. ${name}`;
-}
-async function supabaseGet(path){
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, { headers });
-  if(!res.ok) throw new Error(await res.text());
-  return await res.json();
-}
-async function loadData(){
-  try{
-    cities = await supabaseGet("cities?select=*&order=name.asc");
-    if(!Array.isArray(cities) || cities.length === 0) cities = fallbackCities;
-  } catch(e){
-    console.warn("Kunde inte hämta cities", e);
-    cities = fallbackCities;
-  }
+    function showStatus(msg){ const el = $("loadStatus"); el.textContent = msg; el.classList.remove("hidden"); }
+    function hideStatus(){ $("loadStatus").classList.add("hidden"); }
+    function imageOrIcon(item){
+      if(item.image_url) return `<img src="${item.image_url}" alt="${clean(item.name)}" loading="lazy" onerror="this.remove();this.parentElement.textContent='${iconFor(item)}';" />`;
+      return iconFor(item);
+    }
+    function iconFor(item){
+      const s = norm(`${item.name} ${item.main_category} ${item.sub_category}`);
+      if(s.includes("kvarg") || s.includes("keso") || s.includes("yoghurt") || s.includes("mejeri") || s.includes("mjolk")) return "🥛";
+      if(s.includes("kyck") || s.includes("kott") || s.includes("fagel") || s.includes("fars")) return "🍗";
+      if(s.includes("tonfisk") || s.includes("fisk") || s.includes("lax") || s.includes("makrill")) return "🐟";
+      if(s.includes("agg")) return "🥚";
+      if(s.includes("havre") || s.includes("ris") || s.includes("pasta")) return "🥣";
+      if(s.includes("bon") || s.includes("lins")) return "🫘";
+      return "🛒";
+    }
+    function rawDeff(item){ return n(item.deff_score) || (n(item.protein_per_kr) * n(item.protein_per_100kcal)); }
+    function rawBulk(item){ return n(item.kcal_per_kr) * 0.65 + n(item.protein_per_kr) * 12; }
+    function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
+    function quantile(arr,q){
+      const a = arr.filter(x=>Number.isFinite(x)).sort((x,y)=>x-y);
+      if(!a.length) return 0;
+      const pos = (a.length-1)*q, base = Math.floor(pos), rest = pos-base;
+      return a[base+1] !== undefined ? a[base] + rest*(a[base+1]-a[base]) : a[base];
+    }
+    function scoreColor(score){ return score >= 8 ? "good" : score >= 5 ? "mid" : "low"; }
+    function pillColor(score){ return score >= 8 ? "score-good" : score >= 5 ? "score-mid" : "score-low"; }
+    function assignScores(list){
+      const deffVals = list.map(rawDeff).filter(Boolean);
+      const bulkVals = list.map(rawBulk).filter(Boolean);
+      const dMin = quantile(deffVals,.05), dMax = quantile(deffVals,.95);
+      const bMin = quantile(bulkVals,.05), bMax = quantile(bulkVals,.95);
+      return list.map(item => {
+        const dRaw = rawDeff(item), bRaw = rawBulk(item);
+        const deff10 = dMax === dMin ? 5 : 1 + 9 * ((clamp(dRaw,dMin,dMax)-dMin)/(dMax-dMin));
+        const bulk10 = bMax === bMin ? 5 : 1 + 9 * ((clamp(bRaw,bMin,bMax)-bMin)/(bMax-bMin));
+        return {...item, deff10: Math.round(deff10*10)/10, bulk10: Math.round(bulk10*10)/10};
+      });
+    }
+    function cityName(){ return selectedCity?.name || "Göteborg"; }
+    function setCity(city){
+      selectedCity = city || cities.find(c=>norm(c.name)==="goteborg") || fallbackCities[0];
+      localStorage.setItem("makrokollen_city", selectedCity.name);
+      $("cityName").textContent = selectedCity.name;
+      $("storesCityTitle").textContent = selectedCity.name;
+      $("cityStatus").textContent = `Visar ${selectedCity.name}. Butiker och erbjudanden filtreras efter vald stad när data finns.`;
+      renderStores(); renderOffers(); renderProducts(); renderTopPicks();
+    }
+    function findCityByText(value){
+      const q = norm(value);
+      return cities.find(c => norm(c.name) === q || norm(c.slug) === q) || cities.find(c => norm(c.name).includes(q));
+    }
+    function distanceKm(a,b,c,d){
+      const R=6371, toRad=x=>x*Math.PI/180;
+      const dLat=toRad(c-a), dLon=toRad(d-b);
+      const h=Math.sin(dLat/2)**2 + Math.cos(toRad(a))*Math.cos(toRad(c))*Math.sin(dLon/2)**2;
+      return 2*R*Math.asin(Math.sqrt(h));
+    }
+    function nearestCity(lat,lng){
+      return cities.filter(c=>c.lat && c.lng).map(c=>({...c,dist:distanceKm(lat,lng,n(c.lat),n(c.lng))})).sort((a,b)=>a.dist-b.dist)[0];
+    }
 
-  const savedSlug = localStorage.getItem("makrokollen_city_slug") || "goteborg";
-  selectedCity = cities.find(c => c.slug === savedSlug) || cities.find(c => norm(c.name) === "goteborg") || cities[0] || fallbackCities[0];
-  updateLocationUI();
+    async function loadData(){
+      showStatus("Hämtar data från Supabase...");
+      try{
+        const [pRes,oRes,cRes,sRes] = await Promise.all([
+          db.from("product_scores").select("*").limit(2000),
+          db.from("offer_scores").select("*").limit(1000),
+          db.from("cities").select("*").order("name"),
+          db.from("stores").select("*").order("chain")
+        ]);
+        if(pRes.error) throw pRes.error;
+        products = assignScores((pRes.data?.length ? pRes.data : fallbackProducts).map(x=>({...x,type:"product"})));
+        offers = assignScores((oRes.error ? [] : (oRes.data || [])).map(x=>({...x,type:"offer"})));
+        cities = cRes.error || !cRes.data?.length ? fallbackCities : cRes.data;
+        stores = sRes.error || !sRes.data?.length ? fallbackStores : sRes.data;
+        hideStatus();
+      }catch(err){
+        console.error(err);
+        products = assignScores(fallbackProducts.map(x=>({...x,type:"product"})));
+        offers = [];
+        cities = fallbackCities;
+        stores = fallbackStores;
+        showStatus("Kunde inte läsa allt från Supabase, därför visas fallback-data. Kolla RLS/policies om detta ligger kvar.");
+      }
+      const saved = localStorage.getItem("makrokollen_city");
+      setCity(findCityByText(saved || "Göteborg") || cities[0] || fallbackCities[0]);
+      initFilters();
+      renderCategories();
+    }
 
-  try{
-    stores = await supabaseGet("stores?select=*&active=eq.true&order=chain.asc,store_name.asc");
-    if(!Array.isArray(stores) || stores.length === 0) stores = fallbackStores;
-  } catch(e){
-    console.warn("Kunde inte hämta stores", e);
-    stores = fallbackStores;
-  }
+    function dataForCity(list){
+      const city = norm(cityName());
+      return list.filter(x => !x.city || norm(x.city) === city || norm(x.city).includes(city));
+    }
+    function activeProducts(){
+      let list = products.slice();
+      const q = norm($("searchInput").value);
+      const store = $("storeFilter").value;
+      const main = $("mainFilter").value;
+      const sub = $("subFilter").value;
+      if(q) list = list.filter(p => norm(`${p.name} ${p.brand} ${p.store} ${p.main_category} ${p.sub_category}`).includes(q));
+      if(store !== "all") list = list.filter(p => norm(p.store) === norm(store));
+      if(main !== "all") list = list.filter(p => norm(p.main_category) === norm(main));
+      if(sub !== "all") list = list.filter(p => norm(p.sub_category) === norm(sub));
+      if(activeCategory !== "all") list = list.filter(p => norm(p.main_category) === norm(activeCategory) || norm(p.sub_category) === norm(activeCategory));
+      const sort = $("sortSelect").value;
+      list.sort((a,b)=>{
+        if(sort === "priceAsc") return n(a.price)-n(b.price);
+        if(sort === "bulk10") return n(b.bulk10)-n(a.bulk10);
+        if(sort === "protein_per_kr") return n(b.protein_per_kr)-n(a.protein_per_kr);
+        if(sort === "protein_per_100kcal") return n(b.protein_per_100kcal)-n(a.protein_per_100kcal);
+        return n(b.deff10)-n(a.deff10);
+      });
+      return list;
+    }
 
-  try{
-    products = await supabaseGet("product_scores?select=*&order=protein_per_kr.desc.nullslast");
-    if(!Array.isArray(products) || products.length === 0) products = fallbackProducts;
-  } catch(e){
-    console.warn("Kunde inte hämta product_scores", e);
-    products = fallbackProducts;
-  }
-  try{
-    offers = await supabaseGet("offer_scores?select=*&is_active=eq.true&order=protein_per_kr.desc.nullslast");
-  } catch(e){
-    console.warn("Kunde inte hämta offer_scores, använder produkter som fallback", e);
-    offers = [];
-  }
-  renderAll();
-}
-function storesForSelectedCity(){
-  if(!stores.length) return fallbackStores;
-  const cityName = cityDisplayName();
-  let list = stores.filter(s => {
-    if(selectedCity?.id && String(s.city_id) === String(selectedCity.id)) return true;
-    return norm(s.city) === norm(cityName);
-  });
-  if(!list.length && norm(cityName) === "goteborg") list = stores.filter(s => norm(s.city) === "goteborg");
-  return list.length ? list : fallbackStores;
-}
-function renderStores(){
-  const grid = document.getElementById("storesGrid");
-  const list = storesForSelectedCity();
-  grid.innerHTML = list.slice(0,30).map(s => `
-    <button class="store-card" data-store="${text(s.chain)}" title="Filtrera på ${text(s.chain)}">
-      <div>
-        <div class="store-logo ${chainClass(s.chain)}">${text(s.chain)}</div>
-        <div class="store-name">${text(s.store_name)}</div>
-        <div class="store-address">${text(s.address) || text(s.city) || cityDisplayName()}</div>
-      </div>
-    </button>`).join("");
-  grid.querySelectorAll(".store-card").forEach(btn => btn.addEventListener("click", () => {
-    const filter = document.getElementById("storeFilter");
-    filter.value = btn.dataset.store;
-    document.getElementById("compare").scrollIntoView({behavior:"smooth"});
-    renderProducts();
-  }));
-}
-function renderCategories(){
-  const grid = document.getElementById("categoriesGrid");
-  grid.innerHTML = categories.map(c => `<button class="category-card" data-cat="${c.name}"><div class="cat-color ${c.color}">${c.icon}</div><div class="cat-name">${c.name}</div></button>`).join("");
-  grid.querySelectorAll(".category-card").forEach(btn => btn.addEventListener("click", () => {
-    document.getElementById("mainFilter").value = btn.dataset.cat;
-    document.getElementById("compare").scrollIntoView({behavior:"smooth"});
-    renderProducts();
-  }));
-}
-function renderFilters(){
-  const cityStores = storesForSelectedCity();
-  const storeSet = new Set([...cityStores.map(s=>s.chain).filter(Boolean), ...products.map(p=>p.store).filter(Boolean), ...offers.map(o=>o.store).filter(Boolean)]);
-  const mainSet = new Set([...categories.map(c=>c.name), ...products.map(p=>p.main_category).filter(Boolean)]);
-  const subSet = new Set(products.map(p=>p.sub_category).filter(Boolean));
-  const fill = (id, set, first) => {
-    const el = document.getElementById(id);
-    const old = el.value || "all";
-    el.innerHTML = `<option value="all">${first}</option>` + [...set].sort().map(v=>`<option value="${v}">${v}</option>`).join("");
-    if([...el.options].some(o=>o.value===old)) el.value = old;
-  };
-  fill("storeFilter", storeSet, "Alla butiker");
-  fill("mainFilter", mainSet, "Alla varugrupper");
-  fill("subFilter", subSet, "Alla kategorier");
-  const chips = ["all","Mejeri","Kött, fisk & fågel","Kolonial","Proteinprodukter","Deff","Student" ];
-  document.getElementById("quickChips").innerHTML = chips.map(c=>`<button class="chip ${activeQuick===c?'active':''}" data-chip="${c}">${c==='all'?'Alla':c}</button>`).join("");
-  document.querySelectorAll(".chip").forEach(chip => chip.addEventListener("click",()=>{ activeQuick = chip.dataset.chip; renderFilters(); renderProducts(); }));
-}
-function offerData(){
-  const currentCity = cityDisplayName();
-  const cityOffers = offers.filter(o => !o.city || norm(o.city) === norm(currentCity));
-  if(cityOffers.length) return cityOffers.slice(0,10);
-  if(offers.length) return offers.slice(0,10);
-  return products.slice(0,10).map(p => ({...p, offer_id:p.id, offer_price:p.price, offer_quantity:1, unit_offer_price:p.price, offer_text:"Aktuellt pris", source:p.store, is_active:true, city: currentCity}));
-}
-function renderOffers(){
-  const grid = document.getElementById("offersGrid");
-  const data = offerData().slice(0,5);
-  if(!data.length){ grid.innerHTML = `<div class="empty">Inga erbjudanden ännu. Lägg in rader i Supabase-tabellen offers.</div>`; return; }
-  grid.innerHTML = data.map(o => `
-    <article class="offer-card">
-      <div class="offer-img">${productIcon(o)}</div>
-      <h3>${text(o.name)}</h3>
-      <div class="brandline">${text(o.brand) || ""} ${o.package_size ? `, ${fmt(o.package_size,0)} ${text(o.package_unit)}` : ""}</div>
-      <div class="price">${o.offer_text && o.offer_text !== "Aktuellt pris" ? o.offer_text : money(o.unit_offer_price || o.offer_price || o.price)}</div>
-      <div class="storeline">${text(o.store)} ${text(o.city) || cityDisplayName()}</div>
-      <div class="macroline">${fmt(o.protein_per_kr,2)} g protein/kr · ${fmt(o.protein_per_100kcal,1)} g/100 kcal</div>
-      <div class="card-bottom"><span class="dots">···</span><button class="plus">+</button></div>
-    </article>`).join("");
-}
-function filteredProducts(){
-  const q = document.getElementById("searchInput").value.trim().toLowerCase();
-  const topQ = document.getElementById("topSearch").value.trim().toLowerCase();
-  const query = q || topQ;
-  const store = document.getElementById("storeFilter").value;
-  const main = document.getElementById("mainFilter").value;
-  const sub = document.getElementById("subFilter").value;
-  const sort = document.getElementById("sortSelect").value;
-  let list = [...products];
-  if(query) list = list.filter(p => `${p.name} ${p.brand} ${p.store} ${p.main_category} ${p.sub_category}`.toLowerCase().includes(query));
-  if(store !== "all") list = list.filter(p => text(p.store) === store);
-  if(main !== "all") list = list.filter(p => text(p.main_category) === main);
-  if(sub !== "all") list = list.filter(p => text(p.sub_category) === sub);
-  if(activeQuick !== "all"){
-    if(activeQuick === "Deff") list = list.filter(p => Number(p.protein_per_100kcal || 0) >= 10).sort((a,b)=>Number(b.deff_score||0)-Number(a.deff_score||0));
-    else if(activeQuick === "Student") list = list.filter(p => Number(p.protein_per_kr || 0) >= 1.5).sort((a,b)=>Number(b.protein_per_kr||0)-Number(a.protein_per_kr||0));
-    else list = list.filter(p => text(p.main_category) === activeQuick);
-  }
-  list.sort((a,b) => sort === "price" ? Number(a.price||0)-Number(b.price||0) : Number(b[sort]||0)-Number(a[sort]||0));
-  return list;
-}
-function renderProducts(){
-  const grid = document.getElementById("productsGrid");
-  const list = filteredProducts();
-  if(!list.length){ grid.innerHTML = `<div class="empty">Inga produkter matchar filtren ännu. Testa Alla butiker eller lägg in fler produkter i Supabase.</div>`; return; }
-  grid.innerHTML = list.slice(0,60).map(p => `
-    <article class="product-card">
-      <div class="product-top">
-        <div><h3>${productIcon(p)} ${text(p.name)}</h3><div class="store-small" style="text-align:left">${text(p.brand)} · ${text(p.store)}</div></div>
-        <span class="tag">${text(p.main_category) || "Vara"}</span>
-      </div>
-      <div class="metrics">
-        <div class="metric"><span>Protein/kr</span><strong>${fmt(p.protein_per_kr,2)}</strong></div>
-        <div class="metric"><span>Deff-score</span><strong>${fmt(p.deff_score,1)}</strong></div>
-        <div class="metric"><span>Pris</span><strong>${fmt(p.price,2)}</strong></div>
-      </div>
-      <div class="product-foot">
-        <div>${fmt(p.total_protein,1)} g protein · ${fmt(p.kcal_per_100,0)} kcal/100g</div>
-        ${p.product_url ? `<a class="source-link" href="${p.product_url}" target="_blank" rel="noopener">Källa</a>` : `<span>${p.verified ? "Verifierad" : "Ej verifierad"}</span>`}
-      </div>
-    </article>`).join("");
-}
-function setCity(city){
-  selectedCity = city;
-  localStorage.setItem("makrokollen_city_slug", city.slug || norm(city.name));
-  updateLocationUI();
-  document.getElementById("storeFilter").value = "all";
-  renderStores();
-  renderFilters();
-  renderOffers();
-  renderProducts();
-}
-function setCityFromText(value){
-  const n = norm(value);
-  if(!n) return false;
-  const found = cities.find(c => norm(c.name) === n || norm(c.slug) === n) || cities.find(c => norm(c.name).includes(n) || n.includes(norm(c.name)));
-  if(found){ setCity(found); return true; }
-  alert(`Hittar inte "${value}" ännu. Lägg först in staden i Supabase-tabellen cities.`);
-  return false;
-}
-function distanceKm(aLat,aLng,bLat,bLng){
-  const R = 6371;
-  const dLat = (bLat-aLat) * Math.PI/180;
-  const dLng = (bLng-aLng) * Math.PI/180;
-  const x = Math.sin(dLat/2)**2 + Math.cos(aLat*Math.PI/180)*Math.cos(bLat*Math.PI/180)*Math.sin(dLng/2)**2;
-  return 2 * R * Math.atan2(Math.sqrt(x), Math.sqrt(1-x));
-}
-function nearestCity(lat,lng){
-  return cities.filter(c => c.lat && c.lng).map(c => ({...c, dist: distanceKm(lat,lng,Number(c.lat),Number(c.lng))})).sort((a,b)=>a.dist-b.dist)[0];
-}
-function syncSearch(sourceId){
-  const source = document.getElementById(sourceId);
-  source.addEventListener("input", () => {
-    if(sourceId === "topSearch") document.getElementById("searchInput").value = source.value;
-    renderProducts();
-  });
-}
-function renderAll(){ updateLocationUI(); renderStores(); renderCategories(); renderFilters(); renderOffers(); renderProducts(); }
+    function renderTopPicks(){
+      const list = activeProducts().slice().sort((a,b)=>n(b.deff10)-n(a.deff10)).slice(0,3);
+      $("topPicks").innerHTML = list.length ? list.map((p,i)=>pickCard(p,i+1)).join("") : `<div class="empty">Inga produkter att visa ännu.</div>`;
+    }
+    function pickCard(p,rank){
+      const s = n(p.deff10);
+      return `<article class="pick-card">
+        <div class="pick-rank">${rank}</div>
+        <div class="product-visual">${imageOrIcon(p)}</div>
+        <div class="pick-info">
+          <h3 class="pick-title">${clean(p.name)}</h3>
+          <div class="meta">${clean(p.brand) || "Okänt varumärke"} · ${clean(p.store) || "Butik"}</div>
+          <div class="score-row">
+            <span class="score-pill ${pillColor(p.deff10)}">Deff ${fmt(p.deff10,1)}/10</span>
+            <span class="score-pill ${pillColor(p.bulk10)}">Bulk ${fmt(p.bulk10,1)}/10</span>
+          </div>
+          <div class="price-line"><strong>${money(p.price)}</strong><span>${fmt(p.protein_per_kr,2)} g protein/kr</span></div>
+          <div class="score-bar"><div class="score-fill" style="width:${clamp(s*10,0,100)}%"></div></div>
+        </div>
+      </article>`;
+    }
+    function productCard(p){
+      const deffClass = scoreColor(p.deff10), bulkClass = scoreColor(p.bulk10);
+      return `<article class="product-card">
+        <div class="product-card-top">
+          <div class="product-visual">${imageOrIcon(p)}</div>
+          <div>
+            <h3>${clean(p.name)}</h3>
+            <div class="meta">${clean(p.brand) || "Okänt"} · ${clean(p.store) || "Butik"}</div>
+            <div class="product-tags"><span class="tag">${clean(p.main_category) || "Kategori"}</span><span class="tag">${clean(p.sub_category) || "Varugrupp"}</span></div>
+          </div>
+        </div>
+        <div class="rating-strip">
+          <div class="rating ${deffClass}"><small>Deff-score</small><strong>${fmt(p.deff10,1)}</strong></div>
+          <div class="rating ${bulkClass}"><small>Bulk-score</small><strong>${fmt(p.bulk10,1)}</strong></div>
+        </div>
+        <div class="card-metrics">
+          <div class="card-metric"><span>Pris</span><strong>${money(p.price)}</strong></div>
+          <div class="card-metric"><span>Protein/kr</span><strong>${fmt(p.protein_per_kr,2)}g</strong></div>
+          <div class="card-metric"><span>Protein/100 kcal</span><strong>${fmt(p.protein_per_100kcal,1)}g</strong></div>
+        </div>
+        <div class="product-foot">
+          <span>${fmt(p.total_protein,1)}g protein totalt · ${fmt(p.kcal_per_100,0)} kcal/100g</span>
+          ${p.product_url ? `<a class="link-btn" href="${p.product_url}" target="_blank" rel="noreferrer">Källa</a>` : `<span class="link-btn disabled">Ingen länk</span>`}
+        </div>
+      </article>`;
+    }
+    function renderProducts(){
+      const list = activeProducts();
+      $("productsGrid").innerHTML = list.length ? list.map(productCard).join("") : `<div class="empty">Inga produkter matchar filtren.</div>`;
+      renderTopPicks();
+    }
+    function renderOffers(){
+      const cityOffers = dataForCity(offers).filter(o => o.is_active !== false).sort((a,b)=>n(b.deff10)-n(a.deff10)).slice(0,6);
+      $("offersGrid").innerHTML = cityOffers.length ? cityOffers.map(productCard).join("") : `<div class="empty">Inga erbjudanden inlagda för ${cityName()} ännu. När offers-tabellen fylls på visas de här.</div>`;
+    }
+    function renderStores(){
+      const city = norm(cityName());
+      const list = stores.filter(s => !s.city || norm(s.city) === city || norm(s.city).includes(city));
+      const unique = list.length ? list : fallbackStores;
+      $("storesGrid").innerHTML = unique.map(s=>{
+        const cls = norm(s.chain).replace(/[^a-z0-9åäö]/g,"");
+        return `<button class="store-card" data-chain="${clean(s.chain)}">
+          <div class="store-logo ${cls}">${clean(s.chain).slice(0,5)}</div>
+          <div><div class="store-name">${clean(s.store_name)}</div><div class="store-meta">${clean(s.address) || clean(s.city) || cityName()}</div></div>
+        </button>`;
+      }).join("");
+      document.querySelectorAll(".store-card").forEach(btn=>btn.addEventListener("click",()=>{
+        $("storeFilter").value = btn.dataset.chain;
+        location.hash = "products";
+        renderProducts();
+      }));
+    }
+    function renderCategories(){
+      $("categoryGrid").innerHTML = categoryList.map(c=>`<button class="category-card" data-cat="${c.name}"><div class="cat-icon">${c.icon}</div><div><strong>${c.name}</strong><br><span>${c.hint}</span></div></button>`).join("");
+      document.querySelectorAll(".category-card").forEach(btn=>btn.addEventListener("click",()=>{
+        activeCategory = btn.dataset.cat;
+        $("mainFilter").value = "all";
+        $("subFilter").value = "all";
+        updateChips(); renderProducts(); location.hash = "products";
+      }));
+    }
+    function initFilters(){
+      const storesUnique = [...new Set(products.map(p=>clean(p.store)).filter(Boolean))].sort();
+      const mains = [...new Set(products.map(p=>clean(p.main_category)).filter(Boolean))].sort();
+      const subs = [...new Set(products.map(p=>clean(p.sub_category)).filter(Boolean))].sort();
+      $("storeFilter").innerHTML = `<option value="all">Alla</option>` + storesUnique.map(v=>`<option>${v}</option>`).join("");
+      $("mainFilter").innerHTML = `<option value="all">Alla</option>` + mains.map(v=>`<option>${v}</option>`).join("");
+      $("subFilter").innerHTML = `<option value="all">Alla</option>` + subs.map(v=>`<option>${v}</option>`).join("");
+      updateChips();
+      ["searchInput","storeFilter","mainFilter","subFilter","sortSelect"].forEach(id=>$(id).addEventListener("input",()=>{activeCategory="all";updateChips();renderProducts();}));
+      renderProducts(); renderOffers();
+    }
+    function updateChips(){
+      const chipData = ["all","Mejeri","Kött, fisk & fågel","Kolonial","Proteinprodukter","Vegetariskt"];
+      $("quickChips").innerHTML = chipData.map(c=>`<button class="chip ${activeCategory===c?'active':''}" data-chip="${c}">${c === "all" ? "Alla" : c}</button>`).join("");
+      document.querySelectorAll(".chip").forEach(btn=>btn.addEventListener("click",()=>{activeCategory = btn.dataset.chip; updateChips(); renderProducts();}));
+    }
 
-["searchInput","storeFilter","mainFilter","subFilter","sortSelect"].forEach(id => document.getElementById(id).addEventListener("input", renderProducts));
-syncSearch("topSearch");
+    $("setCityBtn").addEventListener("click",()=>{
+      const city = findCityByText($("cityInput").value);
+      if(city) setCity(city); else $("cityStatus").textContent = "Hittade inte staden i databasen ännu. Lägg in den i cities-tabellen först.";
+    });
+    $("cityPill").addEventListener("click",()=>$("cityInput").focus());
+    $("geoBtn").addEventListener("click",()=>{
+      if(!navigator.geolocation){ $("cityStatus").textContent = "Din webbläsare stödjer inte platsdelning."; return; }
+      $("cityStatus").textContent = "Hämtar din plats...";
+      navigator.geolocation.getCurrentPosition(pos=>{
+        const city = nearestCity(pos.coords.latitude, pos.coords.longitude);
+        if(city) setCity(city); else $("cityStatus").textContent = "Kunde inte hitta närmaste stad i databasen.";
+      },()=>$("cityStatus").textContent = "Plats nekades eller kunde inte hämtas.");
+    });
+    $("openMenu").addEventListener("click",()=>$("mobileMenu").classList.add("open"));
+    $("closeMenu").addEventListener("click",()=>$("mobileMenu").classList.remove("open"));
+    $("mobileMenu").addEventListener("click",e=>{ if(e.target.id === "mobileMenu") $("mobileMenu").classList.remove("open"); });
+    document.querySelectorAll(".menu-links a").forEach(a=>a.addEventListener("click",()=>$("mobileMenu").classList.remove("open")));
 
-document.getElementById("setLocation").addEventListener("click",()=>{
-  const v=document.getElementById("heroLocation").value.trim();
-  if(v) setCityFromText(v);
-});
-document.getElementById("heroLocation").addEventListener("keydown", e => {
-  if(e.key === "Enter") document.getElementById("setLocation").click();
-});
-document.getElementById("useLocation").addEventListener("click",()=>{
-  if(!navigator.geolocation){ alert("Din webbläsare stödjer inte platsdelning."); return; }
-  navigator.geolocation.getCurrentPosition(pos => {
-    const city = nearestCity(pos.coords.latitude, pos.coords.longitude);
-    if(city) setCity(city);
-    else alert("Kunde inte hitta närmaste stad i databasen ännu.");
-  }, () => alert("Plats nekades eller kunde inte hämtas."), {enableHighAccuracy:false, timeout:10000, maximumAge:600000});
-});
-document.getElementById("locationButton").addEventListener("click",()=>{
-  document.getElementById("heroLocation").focus();
-  document.querySelector(".hero").scrollIntoView({behavior:"smooth"});
-});
-const drawerLocationButton = document.getElementById("drawerLocationButton");
-if(drawerLocationButton) drawerLocationButton.addEventListener("click",()=>{
-  drawer.classList.remove("open"); backdrop.classList.remove("open");
-  document.querySelector(".hero").scrollIntoView({behavior:"smooth"});
-  setTimeout(()=>document.getElementById("heroLocation").focus(), 400);
-});
-const drawer=document.getElementById("drawer"), backdrop=document.getElementById("drawerBackdrop");
-document.getElementById("openMenu").addEventListener("click",()=>{drawer.classList.add("open");backdrop.classList.add("open")});
-document.getElementById("closeMenu").addEventListener("click",()=>{drawer.classList.remove("open");backdrop.classList.remove("open")});
-backdrop.addEventListener("click",()=>{drawer.classList.remove("open");backdrop.classList.remove("open")});
-drawer.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{drawer.classList.remove("open");backdrop.classList.remove("open")}));
-loadData();
-</script>
+    loadData();
+  </script>
 </body>
 </html>
