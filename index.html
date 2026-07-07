@@ -53,7 +53,7 @@
     main{width:min(1280px,calc(100% - 28px));margin:0 auto 80px}.section{padding:34px 0}.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:18px}.title{display:flex;align-items:center;gap:12px}.title h2{margin:0;font-size:28px;letter-spacing:-.04em}.square-icon{width:44px;height:44px;border-radius:10px;background:#fff;display:grid;place-items:center;box-shadow:var(--shadow);border-top:4px solid var(--green);font-size:23px}.arrow{font-size:24px}.carousel-controls{display:flex;gap:12px}.round{width:48px;height:48px;border-radius:50%;border:0;background:#fff;box-shadow:var(--shadow);font-size:26px;font-weight:900;cursor:pointer}
     .cards-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}.offer-card,.store-card,.category-card,.product-card,.info-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}.offer-card{min-height:365px;border-top:5px solid var(--green);padding:18px;display:flex;flex-direction:column;text-align:center;position:relative}.offer-img{height:106px;border-radius:16px;background:linear-gradient(135deg,#eef6ff,#fff);display:grid;place-items:center;font-size:52px;margin-bottom:12px}.offer-card h3{font-size:16px;line-height:1.1;margin:0 0 4px;min-height:38px}.offer-card .brandline{font-size:13px;color:#5c6671;min-height:32px}.price{font-size:25px;color:var(--red);font-weight:950;margin:18px 0 2px}.storeline{color:#9aa9b9;font-weight:900;font-size:13px}.macroline{font-size:12px;color:#54606c;background:#f4f6f8;border-radius:999px;padding:7px 9px;margin-top:auto}.card-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:14px}.dots{font-size:24px;font-weight:950}.plus{border:0;background:var(--red);color:#fff;border-radius:999px;width:84px;height:36px;font-size:24px;line-height:0;cursor:pointer}
 
-    .store-card{height:150px;display:grid;place-items:center;border-top:5px solid var(--blue);cursor:pointer;transition:.15s transform}.store-card:hover,.category-card:hover,.offer-card:hover,.product-card:hover{transform:translateY(-3px)}.store-logo{font-size:30px;font-weight:950;letter-spacing:-.05em}.store-logo.red{color:var(--red)}.store-logo.green{color:#13a858}.store-logo.blue{color:#176fff}.store-logo.yellow{color:#f2c300;text-shadow:1px 1px #174ea6}.store-logo.black{color:#111}.store-small{color:#8a98a8;font-weight:850;font-size:13px;margin-top:5px;text-align:center}.category-card{height:170px;display:flex;flex-direction:column}.cat-color{height:104px;display:grid;place-items:center;font-size:52px}.cat-name{flex:1;display:grid;place-items:center;text-align:center;font-weight:950;font-size:14px;padding:8px}.cat-mejeri{background:#aee9e4}.cat-kolonial{background:#efc58d}.cat-kott{background:#ffcfd6}.cat-fisk{background:#df79b0}.cat-protein{background:#ff8d63}.cat-veg{background:#c79284}.cat-eko{background:#8cb57c}
+    .store-card{min-height:170px;display:grid;place-items:center;padding:14px 10px;border-top:5px solid var(--blue);cursor:pointer;transition:.15s transform}.store-card:hover,.category-card:hover,.offer-card:hover,.product-card:hover{transform:translateY(-3px)}.store-logo{font-size:30px;font-weight:950;letter-spacing:-.05em}.store-logo.red{color:var(--red)}.store-logo.green{color:#13a858}.store-logo.blue{color:#176fff}.store-logo.yellow{color:#f2c300;text-shadow:1px 1px #174ea6}.store-logo.black{color:#111}.store-small{color:#8a98a8;font-weight:850;font-size:13px;margin-top:5px;text-align:center}.store-name{font-size:14px;font-weight:950;line-height:1.15;margin-top:8px}.store-address{font-size:12px;color:#7d8996;margin-top:5px;line-height:1.2}.category-card{height:170px;display:flex;flex-direction:column}.cat-color{height:104px;display:grid;place-items:center;font-size:52px}.cat-name{flex:1;display:grid;place-items:center;text-align:center;font-weight:950;font-size:14px;padding:8px}.cat-mejeri{background:#aee9e4}.cat-kolonial{background:#efc58d}.cat-kott{background:#ffcfd6}.cat-fisk{background:#df79b0}.cat-protein{background:#ff8d63}.cat-veg{background:#c79284}.cat-eko{background:#8cb57c}
 
     .dashboard{display:grid;grid-template-columns:1fr;gap:18px}.filters{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}.filters-grid{display:grid;grid-template-columns:1.3fr repeat(4,1fr);gap:12px}.field label{display:block;color:#6e7d8d;font-weight:900;font-size:12px;margin-bottom:6px;text-transform:uppercase;letter-spacing:.03em}.field input,.field select{width:100%;height:44px;border:1px solid var(--line);border-radius:14px;padding:0 12px;background:#f7f9fb;color:#12181f;outline:none}.field input:focus,.field select:focus{border-color:var(--red);box-shadow:0 0 0 4px rgba(239,63,74,.10)}
     .product-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.product-card{padding:20px}.product-top{display:flex;justify-content:space-between;gap:14px}.product-card h3{margin:0 0 5px;font-size:19px;line-height:1.1}.tag{display:inline-flex;align-items:center;border-radius:999px;background:#f1f4f7;color:#657487;padding:6px 10px;font-size:12px;font-weight:900;white-space:nowrap}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}.metric{background:#f6f8fa;border:1px solid var(--line);border-radius:15px;padding:12px}.metric span{display:block;color:#748294;font-size:11px;font-weight:950;text-transform:uppercase}.metric strong{display:block;font-size:20px;color:var(--red);letter-spacing:-.04em;margin-top:5px}.product-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:14px;color:#607080;font-size:13px;font-weight:800}.source-link{color:var(--red);font-weight:950}.empty{background:#fff;border-radius:var(--radius);padding:28px;text-align:center;color:#6d7783;box-shadow:var(--shadow)}
@@ -72,7 +72,7 @@
     <div class="topbar-inner">
       <a class="brand" href="#top" aria-label="MakroKollen startsida"><span class="red">makro</span>kollen <span class="brand-mark">M</span></a>
       <div class="search-wrap"><span class="search-icon">⌕</span><input id="topSearch" type="search" placeholder="Sök produkter, erbjudanden eller jämför protein per krona" /></div>
-      <button class="location-btn" id="locationButton">⌖ <span id="locationText">Falkenberg</span></button>
+      <button class="location-btn" id="locationButton" title="Byt stad">⌖ <span id="locationText">Göteborg</span></button>
       <button class="login-btn" title="Logga in senare">↪</button>
       <button class="menu-btn" id="openMenu">☰ <span>Meny</span></button>
     </div>
@@ -83,7 +83,7 @@
       <h1>Hitta mest protein där du bor</h1>
       <p>Jämför matvaror, kampanjer och butiker efter protein per krona, kcal och egna MakroKollen-score.</p>
       <div class="hero-search">
-        <input id="heroLocation" placeholder="Postnr eller ort" />
+        <input id="heroLocation" placeholder="Skriv stad, t.ex. Göteborg" />
         <div class="hero-actions">
           <button class="pill-action" id="useLocation">⌖ Min plats</button>
           <button class="pill-action secondary" id="setLocation">Sök ort i fältet</button>
@@ -150,7 +150,7 @@
 
   <div class="drawer-backdrop" id="drawerBackdrop"></div>
   <aside class="drawer" id="drawer">
-    <div class="drawer-head"><button class="location-btn">⌖ Falkenberg</button><button class="close" id="closeMenu">×</button></div>
+    <div class="drawer-head"><button class="location-btn" id="drawerLocationButton">⌖ <span id="drawerLocationText">Göteborg</span></button><button class="close" id="closeMenu">×</button></div>
     <div class="menu-grid">
       <a class="menu-tile big" href="#top"><div><span>⌂</span>Hem</div></a>
       <a class="menu-tile" href="#offers"><div><span>🏷️</span>Erbjudanden</div></a>
@@ -168,15 +168,22 @@ const SUPABASE_URL = "https://xbchahtjygkwghlidlui.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_8dUrotr9SWeoIYHOQNNzOw_IBw1jIsE";
 const headers = { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` };
 
-const storeLogos = [
-  {name:"Willys", class:"red", city:"Falkenberg"},
-  {name:"Coop", class:"green", city:"Slättenvägen"},
-  {name:"Lidl", class:"yellow", city:"Falkenberg"},
-  {name:"ICA", class:"red", city:"Nära / Maxi"},
-  {name:"Hemköp", class:"black", city:"Online"},
-  {name:"City Gross", class:"green", city:"Online"},
-  {name:"Rusta", class:"yellow", city:"Falkenberg"},
-  {name:"Dollarstore", class:"red", city:"Falkenberg"}
+const chainStyles = {
+  "Willys": "red",
+  "Coop": "green",
+  "Lidl": "yellow",
+  "ICA": "red",
+  "Hemköp": "black",
+  "City Gross": "green",
+  "Rusta": "yellow",
+  "Dollarstore": "red"
+};
+const fallbackStores = [
+  {chain:"Willys", store_name:"Willys Göteborg", address:"Göteborg", city:"Göteborg"},
+  {chain:"Coop", store_name:"Coop Göteborg", address:"Göteborg", city:"Göteborg"},
+  {chain:"Lidl", store_name:"Lidl Göteborg", address:"Göteborg", city:"Göteborg"},
+  {chain:"ICA", store_name:"ICA Göteborg", address:"Göteborg", city:"Göteborg"},
+  {chain:"Hemköp", store_name:"Hemköp Göteborg", address:"Göteborg", city:"Göteborg"}
 ];
 const categories = [
   {name:"Mejeri", icon:"🥛", color:"cat-mejeri"},
@@ -187,13 +194,18 @@ const categories = [
   {name:"Vegetariskt", icon:"🫘", color:"cat-veg"},
   {name:"Ekologiskt", icon:"🌿", color:"cat-eko"}
 ];
+const fallbackCities = [{id:null,name:"Göteborg",slug:"goteborg",lat:57.7089,lng:11.9746}];
 const fallbackProducts = [
   {name:"Havregryn 1kg",brand:"Garant",store:"Willys",main_category:"Kolonial",sub_category:"Havregryn",price:11.3,package_size:1000,package_unit:"g",protein_per_100:13,kcal_per_100:370,total_protein:130,protein_per_kr:11.5,protein_per_100kcal:3.5,deff_score:40.1,kcal_per_kr:327.4,verified:false},
   {name:"Naturell Kvarg 500g",brand:"Lindahls",store:"Willys",main_category:"Mejeri",sub_category:"Kvarg",price:22.9,package_size:500,package_unit:"g",protein_per_100:11,kcal_per_100:60,total_protein:55,protein_per_kr:2.4,protein_per_100kcal:18.3,deff_score:44.0,kcal_per_kr:13.1,verified:true},
   {name:"Tonfisk i vatten",brand:"Abba",store:"Willys",main_category:"Kött, fisk & fågel",sub_category:"Tonfisk",price:18.9,package_size:150,package_unit:"g",protein_per_100:24,kcal_per_100:110,total_protein:36,protein_per_kr:1.9,protein_per_100kcal:21.8,deff_score:41.5,kcal_per_kr:8.7,verified:false}
 ];
+
 let products = [];
 let offers = [];
+let cities = [];
+let stores = [];
+let selectedCity = null;
 let activeQuick = "all";
 
 function fmt(n, digits=1){
@@ -202,6 +214,7 @@ function fmt(n, digits=1){
 }
 function money(n){ return `${fmt(n,2)} kr`; }
 function text(v){ return (v || "").toString(); }
+function norm(s){ return text(s).trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/å/g,"a").replace(/ä/g,"a").replace(/ö/g,"o"); }
 function productIcon(p){
   const s = `${p.name} ${p.main_category} ${p.sub_category}`.toLowerCase();
   if(s.includes("kvarg") || s.includes("keso") || s.includes("mejeri") || s.includes("yoghurt")) return "🥛";
@@ -212,12 +225,42 @@ function productIcon(p){
   if(s.includes("bön") || s.includes("lins")) return "🫘";
   return "🛒";
 }
+function chainClass(chain){ return chainStyles[text(chain)] || "black"; }
+function cityDisplayName(){ return selectedCity?.name || "Göteborg"; }
+function updateLocationUI(){
+  const name = cityDisplayName();
+  document.getElementById("locationText").textContent = name;
+  const drawerLoc = document.getElementById("drawerLocationText");
+  if(drawerLoc) drawerLoc.textContent = name;
+  const hero = document.getElementById("heroLocation");
+  if(hero && !hero.value) hero.placeholder = `Skriv stad, t.ex. ${name}`;
+}
 async function supabaseGet(path){
   const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, { headers });
   if(!res.ok) throw new Error(await res.text());
   return await res.json();
 }
 async function loadData(){
+  try{
+    cities = await supabaseGet("cities?select=*&order=name.asc");
+    if(!Array.isArray(cities) || cities.length === 0) cities = fallbackCities;
+  } catch(e){
+    console.warn("Kunde inte hämta cities", e);
+    cities = fallbackCities;
+  }
+
+  const savedSlug = localStorage.getItem("makrokollen_city_slug") || "goteborg";
+  selectedCity = cities.find(c => c.slug === savedSlug) || cities.find(c => norm(c.name) === "goteborg") || cities[0] || fallbackCities[0];
+  updateLocationUI();
+
+  try{
+    stores = await supabaseGet("stores?select=*&active=eq.true&order=chain.asc,store_name.asc");
+    if(!Array.isArray(stores) || stores.length === 0) stores = fallbackStores;
+  } catch(e){
+    console.warn("Kunde inte hämta stores", e);
+    stores = fallbackStores;
+  }
+
   try{
     products = await supabaseGet("product_scores?select=*&order=protein_per_kr.desc.nullslast");
     if(!Array.isArray(products) || products.length === 0) products = fallbackProducts;
@@ -233,11 +276,30 @@ async function loadData(){
   }
   renderAll();
 }
+function storesForSelectedCity(){
+  if(!stores.length) return fallbackStores;
+  const cityName = cityDisplayName();
+  let list = stores.filter(s => {
+    if(selectedCity?.id && String(s.city_id) === String(selectedCity.id)) return true;
+    return norm(s.city) === norm(cityName);
+  });
+  if(!list.length && norm(cityName) === "goteborg") list = stores.filter(s => norm(s.city) === "goteborg");
+  return list.length ? list : fallbackStores;
+}
 function renderStores(){
   const grid = document.getElementById("storesGrid");
-  grid.innerHTML = storeLogos.map(s => `<button class="store-card" data-store="${s.name}"><div><div class="store-logo ${s.class}">${s.name}</div><div class="store-small">${s.city}</div></div></button>`).join("");
+  const list = storesForSelectedCity();
+  grid.innerHTML = list.slice(0,30).map(s => `
+    <button class="store-card" data-store="${text(s.chain)}" title="Filtrera på ${text(s.chain)}">
+      <div>
+        <div class="store-logo ${chainClass(s.chain)}">${text(s.chain)}</div>
+        <div class="store-name">${text(s.store_name)}</div>
+        <div class="store-address">${text(s.address) || text(s.city) || cityDisplayName()}</div>
+      </div>
+    </button>`).join("");
   grid.querySelectorAll(".store-card").forEach(btn => btn.addEventListener("click", () => {
-    document.getElementById("storeFilter").value = btn.dataset.store;
+    const filter = document.getElementById("storeFilter");
+    filter.value = btn.dataset.store;
     document.getElementById("compare").scrollIntoView({behavior:"smooth"});
     renderProducts();
   }));
@@ -252,7 +314,8 @@ function renderCategories(){
   }));
 }
 function renderFilters(){
-  const storeSet = new Set([...storeLogos.map(s=>s.name), ...products.map(p=>p.store).filter(Boolean), ...offers.map(o=>o.store).filter(Boolean)]);
+  const cityStores = storesForSelectedCity();
+  const storeSet = new Set([...cityStores.map(s=>s.chain).filter(Boolean), ...products.map(p=>p.store).filter(Boolean), ...offers.map(o=>o.store).filter(Boolean)]);
   const mainSet = new Set([...categories.map(c=>c.name), ...products.map(p=>p.main_category).filter(Boolean)]);
   const subSet = new Set(products.map(p=>p.sub_category).filter(Boolean));
   const fill = (id, set, first) => {
@@ -269,8 +332,11 @@ function renderFilters(){
   document.querySelectorAll(".chip").forEach(chip => chip.addEventListener("click",()=>{ activeQuick = chip.dataset.chip; renderFilters(); renderProducts(); }));
 }
 function offerData(){
+  const currentCity = cityDisplayName();
+  const cityOffers = offers.filter(o => !o.city || norm(o.city) === norm(currentCity));
+  if(cityOffers.length) return cityOffers.slice(0,10);
   if(offers.length) return offers.slice(0,10);
-  return products.slice(0,10).map(p => ({...p, offer_id:p.id, offer_price:p.price, offer_quantity:1, unit_offer_price:p.price, offer_text:"Aktuellt pris", source:p.store, is_active:true}));
+  return products.slice(0,10).map(p => ({...p, offer_id:p.id, offer_price:p.price, offer_quantity:1, unit_offer_price:p.price, offer_text:"Aktuellt pris", source:p.store, is_active:true, city: currentCity}));
 }
 function renderOffers(){
   const grid = document.getElementById("offersGrid");
@@ -282,7 +348,7 @@ function renderOffers(){
       <h3>${text(o.name)}</h3>
       <div class="brandline">${text(o.brand) || ""} ${o.package_size ? `, ${fmt(o.package_size,0)} ${text(o.package_unit)}` : ""}</div>
       <div class="price">${o.offer_text && o.offer_text !== "Aktuellt pris" ? o.offer_text : money(o.unit_offer_price || o.offer_price || o.price)}</div>
-      <div class="storeline">${text(o.store)} ${text(o.city)}</div>
+      <div class="storeline">${text(o.store)} ${text(o.city) || cityDisplayName()}</div>
       <div class="macroline">${fmt(o.protein_per_kr,2)} g protein/kr · ${fmt(o.protein_per_100kcal,1)} g/100 kcal</div>
       <div class="card-bottom"><span class="dots">···</span><button class="plus">+</button></div>
     </article>`).join("");
@@ -329,6 +395,34 @@ function renderProducts(){
       </div>
     </article>`).join("");
 }
+function setCity(city){
+  selectedCity = city;
+  localStorage.setItem("makrokollen_city_slug", city.slug || norm(city.name));
+  updateLocationUI();
+  document.getElementById("storeFilter").value = "all";
+  renderStores();
+  renderFilters();
+  renderOffers();
+  renderProducts();
+}
+function setCityFromText(value){
+  const n = norm(value);
+  if(!n) return false;
+  const found = cities.find(c => norm(c.name) === n || norm(c.slug) === n) || cities.find(c => norm(c.name).includes(n) || n.includes(norm(c.name)));
+  if(found){ setCity(found); return true; }
+  alert(`Hittar inte "${value}" ännu. Lägg först in staden i Supabase-tabellen cities.`);
+  return false;
+}
+function distanceKm(aLat,aLng,bLat,bLng){
+  const R = 6371;
+  const dLat = (bLat-aLat) * Math.PI/180;
+  const dLng = (bLng-aLng) * Math.PI/180;
+  const x = Math.sin(dLat/2)**2 + Math.cos(aLat*Math.PI/180)*Math.cos(bLat*Math.PI/180)*Math.sin(dLng/2)**2;
+  return 2 * R * Math.atan2(Math.sqrt(x), Math.sqrt(1-x));
+}
+function nearestCity(lat,lng){
+  return cities.filter(c => c.lat && c.lng).map(c => ({...c, dist: distanceKm(lat,lng,Number(c.lat),Number(c.lng))})).sort((a,b)=>a.dist-b.dist)[0];
+}
 function syncSearch(sourceId){
   const source = document.getElementById(sourceId);
   source.addEventListener("input", () => {
@@ -336,11 +430,36 @@ function syncSearch(sourceId){
     renderProducts();
   });
 }
-function renderAll(){ renderStores(); renderCategories(); renderFilters(); renderOffers(); renderProducts(); }
+function renderAll(){ updateLocationUI(); renderStores(); renderCategories(); renderFilters(); renderOffers(); renderProducts(); }
+
 ["searchInput","storeFilter","mainFilter","subFilter","sortSelect"].forEach(id => document.getElementById(id).addEventListener("input", renderProducts));
 syncSearch("topSearch");
-document.getElementById("setLocation").addEventListener("click",()=>{ const v=document.getElementById("heroLocation").value.trim(); if(v) document.getElementById("locationText").textContent=v; });
-document.getElementById("useLocation").addEventListener("click",()=>{ document.getElementById("locationText").textContent="Min plats"; });
+
+document.getElementById("setLocation").addEventListener("click",()=>{
+  const v=document.getElementById("heroLocation").value.trim();
+  if(v) setCityFromText(v);
+});
+document.getElementById("heroLocation").addEventListener("keydown", e => {
+  if(e.key === "Enter") document.getElementById("setLocation").click();
+});
+document.getElementById("useLocation").addEventListener("click",()=>{
+  if(!navigator.geolocation){ alert("Din webbläsare stödjer inte platsdelning."); return; }
+  navigator.geolocation.getCurrentPosition(pos => {
+    const city = nearestCity(pos.coords.latitude, pos.coords.longitude);
+    if(city) setCity(city);
+    else alert("Kunde inte hitta närmaste stad i databasen ännu.");
+  }, () => alert("Plats nekades eller kunde inte hämtas."), {enableHighAccuracy:false, timeout:10000, maximumAge:600000});
+});
+document.getElementById("locationButton").addEventListener("click",()=>{
+  document.getElementById("heroLocation").focus();
+  document.querySelector(".hero").scrollIntoView({behavior:"smooth"});
+});
+const drawerLocationButton = document.getElementById("drawerLocationButton");
+if(drawerLocationButton) drawerLocationButton.addEventListener("click",()=>{
+  drawer.classList.remove("open"); backdrop.classList.remove("open");
+  document.querySelector(".hero").scrollIntoView({behavior:"smooth"});
+  setTimeout(()=>document.getElementById("heroLocation").focus(), 400);
+});
 const drawer=document.getElementById("drawer"), backdrop=document.getElementById("drawerBackdrop");
 document.getElementById("openMenu").addEventListener("click",()=>{drawer.classList.add("open");backdrop.classList.add("open")});
 document.getElementById("closeMenu").addEventListener("click",()=>{drawer.classList.remove("open");backdrop.classList.remove("open")});
